@@ -44,7 +44,7 @@ public class UserinfoTest extends AbstractHttpTest {
     o.testLoginSuccess();
     //o.testgetUserInfoSuccess();
     //o.testLoginFailed();
-    o.testUpdateSuccess();
+    //o.testUpdateSuccess();
     //o.testAddSuccess();
   }
   
@@ -66,10 +66,11 @@ public class UserinfoTest extends AbstractHttpTest {
       //GetMethodWebRequest
       ParentRegJsonform form =new ParentRegJsonform();
 
-      form.setTel("13882217973");
+      form.setTel("13882217978");
       String password="123456";
       form.setPassword(MD5Until.getMD5String(password));
       form.setType(2);
+      form.setSmscode("zxcv");
   
       String json=JSONUtils.getJsonString(form);
       HttpUtils.printjson(json);
