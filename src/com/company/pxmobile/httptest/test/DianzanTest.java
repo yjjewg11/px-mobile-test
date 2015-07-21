@@ -12,7 +12,7 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
 
-public class ClassnewsTest extends AbstractHttpTest {
+public class DianzanTest extends AbstractHttpTest {
 	  public UserinfoTest user= new UserinfoTest();
   /**
    * run this testcase as a suite from the command line
@@ -21,7 +21,7 @@ public class ClassnewsTest extends AbstractHttpTest {
    */
   public static void main(String args[]) throws Exception {
       //junit.textui.TestRunner.run( suite() );
-    ClassnewsTest o=new ClassnewsTest();
+    DianzanTest o=new DianzanTest();
     o.testgetClassNewsByMy();
     //o.testgetUserInfoSuccess();
     //o.testLoginFailed();
@@ -33,7 +33,7 @@ public class ClassnewsTest extends AbstractHttpTest {
    * @return
    */
   public static Test suite() {
-      return new TestSuite( ClassnewsTest.class );
+      return new TestSuite( DianzanTest.class );
   }
   
 
@@ -44,8 +44,9 @@ public class ClassnewsTest extends AbstractHttpTest {
   public void testgetClassNewsByMy() throws Exception {
       WebConversation     conversation = new WebConversation();
       //GetMethodWebRequest
-      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/classnews/getClassNewsByMy.json" );
+      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/dianzan/getByNewsuuid.json" );
       request.setParameter("JSESSIONID",  user.getLoginSessionid());
+      request.setParameter("newsuuid",  "f2f23b26-e7ba-49c0-9c68-06f8e8e7760d");
         WebResponse response = tryGetResponse(conversation, request );
 //      WebForm loginForm = response.getForms()[0];
 //      request = loginForm.getRequest();

@@ -6,10 +6,10 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import com.company.news.SystemConstants;
+import com.company.news.json.JSONUtils;
 import com.company.news.jsonform.AnnouncementsJsonform;
 import com.company.pxmobile.httptest.AbstractHttpTest;
 import com.company.pxmobile.httptest.HttpUtils;
-import com.company.pxmobile.httptest.JSONUtils;
 import com.company.pxmobile.httptest.TestConstants;
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.PostMethodWebRequest;
@@ -33,7 +33,7 @@ public class AnnouncementsTest extends AbstractHttpTest {
 		// o.testRegSuccess();
 		//o.testUpdateSuccess();
         
-		//o.testListSuccess();
+		o.testListSuccess();
 		
 		//o.testAddSuccess();
 		
@@ -87,8 +87,7 @@ public class AnnouncementsTest extends AbstractHttpTest {
 		WebConversation conversation = new WebConversation();
 		// GetMethodWebRequest
 		WebRequest request = new GetMethodWebRequest(TestConstants.host
-				+ "rest/announcements/queryMyAnnouncements.json"+user.addParameter_JSESSIONID()
-				+"&type=2&groupuuid=4df131a6-042e-4808-b03c-94d99533ea12&classuuid=51a05579-cf42-42aa-aafc-4ef0a520e1e8");
+				+ "rest/announcements/queryMy.json"+user.addParameter_JSESSIONID());
 
 		WebResponse response = tryGetResponse(conversation, request);
 
@@ -122,7 +121,7 @@ public class AnnouncementsTest extends AbstractHttpTest {
 		WebConversation conversation = new WebConversation();
 		// GetMethodWebRequest
 		WebRequest request = new GetMethodWebRequest(TestConstants.host
-				+ "rest/announcements/df2edffd-6540-4370-be2c-c1429ed89249.json"+user.addParameter_JSESSIONID());
+				+ "rest/announcements/14d4aad6-44f3-4c2d-8bf1-d938e44f5b4e.json"+user.addParameter_JSESSIONID());
 
 		WebResponse response = tryGetResponse(conversation, request);
 

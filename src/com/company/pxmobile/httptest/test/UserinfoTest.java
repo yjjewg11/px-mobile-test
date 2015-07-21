@@ -9,9 +9,7 @@ import net.sf.json.JSONObject;
 import com.company.news.SystemConstants;
 import com.company.news.jsonform.ParentRegJsonform;
 import com.company.news.jsonform.UserRegJsonform;
-import com.company.news.rest.RestConstants;
 import com.company.news.rest.util.MD5Until;
-import com.company.news.rest.util.TimeUtils;
 import com.company.pxmobile.httptest.AbstractHttpTest;
 import com.company.pxmobile.httptest.HttpUtils;
 import com.company.pxmobile.httptest.JSONUtils;
@@ -33,6 +31,8 @@ public class UserinfoTest extends AbstractHttpTest {
     }
     return sessionid;
   }
+  //13628037996,13628037994
+  static public String tel="13628037995";
   /**
    * run this testcase as a suite from the command line
    * @param args - ignored
@@ -41,11 +41,13 @@ public class UserinfoTest extends AbstractHttpTest {
   public static void main(String args[]) throws Exception {
       //junit.textui.TestRunner.run( suite() );
     UserinfoTest o=new UserinfoTest();
+    o.testAddSuccess();
     o.testLoginSuccess();
-    //o.testgetUserInfoSuccess();
+//    o.testgetUserInfoSuccess();
     //o.testLoginFailed();
     //o.testUpdateSuccess();
-    //o.testAddSuccess();
+    o.testlistByMyChildrenuccess();
+   
   }
   
   /**
@@ -66,11 +68,10 @@ public class UserinfoTest extends AbstractHttpTest {
       //GetMethodWebRequest
       ParentRegJsonform form =new ParentRegJsonform();
 
-      form.setTel("13882217978");
+      form.setTel(tel);
       String password="123456";
       form.setPassword(MD5Until.getMD5String(password));
       form.setType(2);
-      form.setSmscode("zxcv");
   
       String json=JSONUtils.getJsonString(form);
       HttpUtils.printjson(json);
@@ -108,7 +109,7 @@ public class UserinfoTest extends AbstractHttpTest {
   public void testLoginSuccess() throws Exception {
       WebConversation     conversation = new WebConversation();
       //GetMethodWebRequest
-      WebRequest  request = new PostMethodWebRequest( TestConstants.host+"rest/userinfo/login.json?loginname="+"13882217972"+"&password="+MD5Until.getMD5String("123456") );
+      WebRequest  request = new PostMethodWebRequest( TestConstants.host+"rest/userinfo/login.json?loginname="+tel+"&password="+MD5Until.getMD5String("123456") );
         WebResponse response = tryGetResponse(conversation, request );
 //      WebForm loginForm = response.getForms()[0];
 //      request = loginForm.getRequest();
@@ -152,6 +153,28 @@ public class UserinfoTest extends AbstractHttpTest {
 //      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
   }
   
+  
+  public void testlistByMyChildrenuccess() throws Exception {
+      WebConversation     conversation = new WebConversation();
+      //GetMethodWebRequest
+      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/student/listByMyChildren.json" );
+      request.setParameter("JSESSIONID",  this.getLoginSessionid());
+        WebResponse response = tryGetResponse(conversation, request );
+//      WebForm loginForm = response.getForms()[0];
+//      request = loginForm.getRequest();
+//      response = conversation.getResponse( request );
+        HttpUtils.println(conversation, request, response);
+        assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
+        
+        
+      if (response.getContentType().equals("application/json")) {
+        JSONObject jsonObject = JSONObject.fromObject(response.getText());
+        this.sessionid=(String)jsonObject.get("JSESSIONID");
+        System.out.println("JSESSIONID="+this.getLoginSessionid()); // Benju
+       }
+//
+//      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
+  }
   /**
    * Verifies that submitting the login form without entering a name results in a page
    * containing the text "Login failed"
@@ -185,7 +208,7 @@ public class UserinfoTest extends AbstractHttpTest {
       UserRegJsonform form =new UserRegJsonform();
       form.setName("jbb");
       form.setGroup_uuid("testuuid");
-      form.setTel("13980223880");
+      form.setTel(tel);
       String password="123456";
       form.setPassword(MD5Until.getMD5String(password));
       form.setType(0);
@@ -193,12 +216,12 @@ public class UserinfoTest extends AbstractHttpTest {
       String json=JSONUtils.getJsonString(form);
       HttpUtils.printjson(json);
       ByteArrayInputStream input=new ByteArrayInputStream(json.getBytes(SystemConstants.Charset));
-      PostMethodWebRequest  request = new PostMethodWebRequest( TestConstants.host+"rest/userinfo/add.json"+this.addParameter_JSESSIONID(),input,TestConstants.contentType );
+      PostMethodWebRequest  request = new PostMethodWebRequest( TestConstants.host+"rest/userinfo/reg.json",input,TestConstants.contentType );
 
       WebResponse response = tryGetResponse(conversation, request );
        
       HttpUtils.println(conversation, request, response);
-      assertTrue( "新增-成功", response.getText().indexOf( "success" ) != -1 );
+      assertTrue( "新增-成功", response.getText().indexOf( "status" ) != -1 );
       
   }
   
