@@ -30,15 +30,7 @@ public class AnnouncementsTest extends AbstractHttpTest {
 		// junit.textui.TestRunner.run( suite() );
 		
 		AnnouncementsTest o = new AnnouncementsTest();
-		// o.testRegSuccess();
-		//o.testUpdateSuccess();
-        
 		o.testListSuccess();
-		
-		//o.testAddSuccess();
-		
-		///o.testUpdateSuccess();
-		
 		o.testGetSuccess();
 	}
 
