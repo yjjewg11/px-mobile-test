@@ -10,12 +10,8 @@ import com.company.pxmobile.httptest.test.UserinfoTest;
 
 public class MainTest {
 
-  /**
-   * @param args
-   * @throws Exception
-   */
-  public static void main(String[] args) throws Exception {
-    {
+	
+	public void doman() throws Exception{
 		{
 			UserinfoTest.main(null);
 			AnnouncementsTest o = new AnnouncementsTest();
@@ -32,7 +28,7 @@ public class MainTest {
 		    
 		{
 			MessageTest o=new MessageTest();
-			o.testsaveToTeacher();
+			//o.testsaveToTeacher();
 			o.queryMyTimely();
 			o.queryMessageByMy();
 		}
@@ -44,6 +40,28 @@ public class MainTest {
 			ShareTest o = new ShareTest();
 			o.testshare_getEmotSuccess();
 		}
+	}
+  /**
+   * @param args
+   * @throws Exception
+   */
+  public static void main(String[] args) throws Exception {
+    {
+    	
+    	
+    	for(int i=0;i<1;i++){
+    		   Thread t = new Thread(new Runnable(){  
+    	            public void run(){  
+	    	           try {
+						new MainTest().doman();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    	            }});  
+    	        t.start();  
+    	}
+		
 
 
     }

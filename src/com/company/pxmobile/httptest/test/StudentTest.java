@@ -92,7 +92,7 @@ public class StudentTest extends AbstractHttpTest {
 		s.setClassuuid("e1591749-3551-410d-91e3-b6f3151fdeae");
 		s.setUuid("6b7e972c-432d-4ad7-bba2-abda8863c9a1");
 		s.setNickname("小甜甜");
-
+		s.setHeadimg("http://120.25.248.31/px-rest/rest/uploadFile/getImgFile.json?uuid=d8a08ca3-b823");
 		String json = JSONUtils.getJsonString(s);
 		HttpUtils.printjson(json);
 		ByteArrayInputStream input = new ByteArrayInputStream(

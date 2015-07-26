@@ -28,7 +28,7 @@ public class MessageTest  extends AbstractHttpTest {
 	  public static void main(String args[]) throws Exception {
 	      //junit.textui.TestRunner.run( suite() );
 		  MessageTest o=new MessageTest();
-	    o.testsaveToTeacher();
+	  //  o.testsaveToTeacher();
 	    o.queryMyTimely();
 	    o.queryMessageByMy();
 	    //o.testLoginFailed();
