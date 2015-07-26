@@ -2,7 +2,7 @@ package com.company.pxmobile.httptest;
 
 
 import com.company.pxmobile.httptest.test.AnnouncementsTest;
-import com.company.pxmobile.httptest.test.ClassnewsTest;
+import com.company.pxmobile.httptest.test.ClassNewsTest;
 import com.company.pxmobile.httptest.test.DianzanTest;
 import com.company.pxmobile.httptest.test.MessageTest;
 import com.company.pxmobile.httptest.test.UserinfoTest;
@@ -24,7 +24,7 @@ public class MainTest {
 		}
 		{
 			
-			ClassnewsTest o=new ClassnewsTest();
+			ClassNewsTest o=new ClassNewsTest();
 			o.testgetClassNewsByMy();
 			
 		}

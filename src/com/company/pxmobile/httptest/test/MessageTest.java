@@ -40,7 +40,7 @@ public class MessageTest  extends AbstractHttpTest {
 	   * @return
 	   */
 	  public static Test suite() {
-	      return new TestSuite( ClassnewsTest.class );
+	      return new TestSuite( MessageTest.class );
 	  }
 	  
 	  
