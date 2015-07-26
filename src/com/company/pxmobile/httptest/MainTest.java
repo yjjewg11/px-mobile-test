@@ -5,6 +5,7 @@ import com.company.pxmobile.httptest.test.AnnouncementsTest;
 import com.company.pxmobile.httptest.test.ClassNewsTest;
 import com.company.pxmobile.httptest.test.DianzanTest;
 import com.company.pxmobile.httptest.test.MessageTest;
+import com.company.pxmobile.httptest.test.ShareTest;
 import com.company.pxmobile.httptest.test.UserinfoTest;
 
 public class MainTest {
@@ -38,6 +39,10 @@ public class MainTest {
 		{
 			 DianzanTest o=new DianzanTest();
 			    o.testgetClassNewsByMy();
+		}
+		{
+			ShareTest o = new ShareTest();
+			o.testshare_getEmotSuccess();
 		}
 
 
