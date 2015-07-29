@@ -12,7 +12,7 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
 
-public class ClassnewsTest extends AbstractHttpTest {
+public class ClassNewsTest extends AbstractHttpTest {
 	  public UserinfoTest user= new UserinfoTest();
   /**
    * run this testcase as a suite from the command line
@@ -21,7 +21,7 @@ public class ClassnewsTest extends AbstractHttpTest {
    */
   public static void main(String args[]) throws Exception {
       //junit.textui.TestRunner.run( suite() );
-    ClassnewsTest o=new ClassnewsTest();
+    ClassNewsTest o=new ClassNewsTest();
     o.testgetClassNewsByMy();
     //o.testgetUserInfoSuccess();
     //o.testLoginFailed();
@@ -33,7 +33,7 @@ public class ClassnewsTest extends AbstractHttpTest {
    * @return
    */
   public static Test suite() {
-      return new TestSuite( ClassnewsTest.class );
+      return new TestSuite( ClassNewsTest.class );
   }
   
 
