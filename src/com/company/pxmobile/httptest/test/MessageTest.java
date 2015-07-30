@@ -28,9 +28,10 @@ public class MessageTest  extends AbstractHttpTest {
 	  public static void main(String args[]) throws Exception {
 	      //junit.textui.TestRunner.run( suite() );
 		  MessageTest o=new MessageTest();
-	  //  o.testsaveToTeacher();
-	    o.queryMyTimely();
-	    o.queryMessageByMy();
+	   // o.testsaveToTeacher();
+	   // o.queryMyTimely();
+	  //  o.queryMessageByMy();
+	    o.testsaveTosaveToLeader();
 	    //o.testLoginFailed();
 	   
 	  }
@@ -49,20 +50,20 @@ public class MessageTest  extends AbstractHttpTest {
 	   * Verifies that submitting the login form without entering a name results in a page
 	   * containing the text "Login failed"
 	   **/
-	  public void queryMyTimely() throws Exception {
-	      WebConversation     conversation = new WebConversation();
-	      //GetMethodWebRequest
-	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/message/queryMyTimely.json" );
-	      request.setParameter("JSESSIONID",  user.getLoginSessionid());
-	        WebResponse response = tryGetResponse(conversation, request );
-//	      WebForm loginForm = response.getForms()[0];
-//	      request = loginForm.getRequest();
-//	      response = conversation.getResponse( request );
-	        HttpUtils.println(conversation, request, response);
-	        assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
-	//
-//	      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
-	  }
+//	  public void queryMyTimely() throws Exception {
+//	      WebConversation     conversation = new WebConversation();
+//	      //GetMethodWebRequest
+//	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/message/queryMyTimely.json" );
+//	      request.setParameter("JSESSIONID",  user.getLoginSessionid());
+//	        WebResponse response = tryGetResponse(conversation, request );
+////	      WebForm loginForm = response.getForms()[0];
+////	      request = loginForm.getRequest();
+////	      response = conversation.getResponse( request );
+//	        HttpUtils.println(conversation, request, response);
+//	        assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
+//	//
+////	      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
+//	  }
 
 	  /**
 	   * Verifies that submitting the login form without entering a name results in a page
@@ -103,6 +104,27 @@ public class MessageTest  extends AbstractHttpTest {
 					json.getBytes(SystemConstants.Charset));
 			PostMethodWebRequest request = new PostMethodWebRequest(
 					TestConstants.host + "rest/message/saveToTeacher.json"+user.addParameter_JSESSIONID(), input,
+					TestConstants.contentType);
+
+			WebResponse response = tryGetResponse(conversation, request);
+
+			HttpUtils.println(conversation, request, response);
+			assertTrue("-成功", response.getText().indexOf("success") != -1);
+//	      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
+	  }
+	  public void testsaveTosaveToLeader() throws Exception {
+		  WebConversation conversation = new WebConversation();
+			// GetMethodWebRequest
+
+			MessageJsonform form = new MessageJsonform();
+			form.setMessage("<p>老师你好</p>");
+			form.setRevice_useruuid("ef3fd53f-03f7-42d6-8258-969a4a980f58");
+			String json = JSONUtils.getJsonString(form);
+			HttpUtils.printjson(json);
+			ByteArrayInputStream input = new ByteArrayInputStream(
+					json.getBytes(SystemConstants.Charset));
+			PostMethodWebRequest request = new PostMethodWebRequest(
+					TestConstants.host + "rest/message/saveToLeader.json"+user.addParameter_JSESSIONID(), input,
 					TestConstants.contentType);
 
 			WebResponse response = tryGetResponse(conversation, request);

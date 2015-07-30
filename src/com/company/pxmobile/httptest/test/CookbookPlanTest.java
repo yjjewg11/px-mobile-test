@@ -33,7 +33,7 @@ public class CookbookPlanTest extends AbstractHttpTest {
 		// o.testRegSuccess();
 		o.testListSuccess();
 //o.testGroupListSuccess();
-		//o.testGetSuccess();
+		o.testGetSuccess();
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class CookbookPlanTest extends AbstractHttpTest {
 		// GetMethodWebRequest
 		WebRequest request = new GetMethodWebRequest(TestConstants.host
 				+ "rest/cookbookplan/list.json"+user.addParameter_JSESSIONID()
-				+"&begDateStr=2015-06-10&endDateStr=2015-06-20&groupuuid=9bf8604b-80b3-49bb-847c-b87f56d4bcb8");
+				+"&begDateStr=2015-06-10&endDateStr=2015-08-20&groupuuid=943f1e95-f845-41b1-8520-9de3428dc888");
 
 		WebResponse response = tryGetResponse(conversation, request);
 

@@ -3,8 +3,10 @@ package com.company.pxmobile.httptest;
 
 import com.company.pxmobile.httptest.test.AnnouncementsTest;
 import com.company.pxmobile.httptest.test.ClassNewsTest;
+import com.company.pxmobile.httptest.test.CookbookPlanTest;
 import com.company.pxmobile.httptest.test.DianzanTest;
 import com.company.pxmobile.httptest.test.MessageTest;
+import com.company.pxmobile.httptest.test.PushMessageTest;
 import com.company.pxmobile.httptest.test.ShareTest;
 import com.company.pxmobile.httptest.test.UserinfoTest;
 
@@ -15,8 +17,15 @@ public class MainTest {
 		{
 			UserinfoTest.main(null);
 			AnnouncementsTest o = new AnnouncementsTest();
-			o.testListSuccess();
+			o.testqueryMyAnnouncementsSuccess();
 			o.testGetSuccess();
+			
+		}
+	{
+			
+		CookbookPlanTest o = new CookbookPlanTest();
+		o.testListSuccess();
+		o.testGetSuccess();
 			
 		}
 		{
@@ -29,7 +38,7 @@ public class MainTest {
 		{
 			MessageTest o=new MessageTest();
 			//o.testsaveToTeacher();
-			o.queryMyTimely();
+//			o.queryMyTimely();
 			o.queryMessageByMy();
 		}
 		{
@@ -39,6 +48,11 @@ public class MainTest {
 		{
 			ShareTest o = new ShareTest();
 			o.testshare_getEmotSuccess();
+		}
+		
+		{
+			PushMessageTest o = new PushMessageTest();
+			o.queryMy();
 		}
 	}
   /**

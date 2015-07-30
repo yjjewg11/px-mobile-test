@@ -32,8 +32,8 @@ public class TeachingPlanTest extends AbstractHttpTest {
 		TeachingPlanTest o = new TeachingPlanTest();
 		// o.testRegSuccess();
 	//o.testGetSuccess();
-//o.testGroupListSuccess();
-		o.testGetSuccess();
+o.testListSuccess();
+	//	o.testGetSuccess();
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class TeachingPlanTest extends AbstractHttpTest {
 		// GetMethodWebRequest
 		WebRequest request = new GetMethodWebRequest(TestConstants.host
 				+ "rest/teachingplan/list.json"+user.addParameter_JSESSIONID()
-				+"&begDateStr=2015-06-10&endDateStr=2015-06-20&classuuid=51a05579-cf42-42aa-aafc-4ef0a520e1e8");
+				+"&begDateStr=2015-06-10&endDateStr=2015-09-20&classuuid=c42bc32c-32f8-4012-acbc-8ade3867d740");
 
 		WebResponse response = tryGetResponse(conversation, request);
 

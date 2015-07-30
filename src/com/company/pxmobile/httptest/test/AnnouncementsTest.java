@@ -30,7 +30,7 @@ public class AnnouncementsTest extends AbstractHttpTest {
 		// junit.textui.TestRunner.run( suite() );
 		
 		AnnouncementsTest o = new AnnouncementsTest();
-		o.testListSuccess();
+		o.testqueryMyAnnouncementsSuccess();
 		o.testGetSuccess();
 	}
 
@@ -75,7 +75,7 @@ public class AnnouncementsTest extends AbstractHttpTest {
 
 	}
 
-	public void testListSuccess() throws Exception {
+	public void testqueryMyAnnouncementsSuccess() throws Exception {
 		WebConversation conversation = new WebConversation();
 		// GetMethodWebRequest
 		WebRequest request = new GetMethodWebRequest(TestConstants.host
