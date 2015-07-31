@@ -34,8 +34,8 @@ public class TeacherJudgeTest extends AbstractHttpTest {
 		TeacherJudgeTest o = new TeacherJudgeTest();
 		 //o.testDeleteSuccess();
 		//o.testAddSuccess();
-//o.testGroupListSuccess();
-		o.testGetSuccess();
+o.testgetTeachersAndJudges();
+	//	o.testGetSuccess();
 	}
 
 	/**
@@ -45,6 +45,20 @@ public class TeacherJudgeTest extends AbstractHttpTest {
 	 */
 	public static Test suite() {
 		return new TestSuite(TeacherJudgeTest.class);
+	}
+
+	public void testgetTeachersAndJudges() throws Exception {
+		WebConversation conversation = new WebConversation();
+		// GetMethodWebRequest
+		WebRequest request = new GetMethodWebRequest(TestConstants.host
+				+ "rest/teachingjudge/getTeachersAndJudges.json"+user.addParameter_JSESSIONID()
+				+"&teacheruuid=780e07ac-8203-4fcd-b1ea-54b878464e3d");
+
+		WebResponse response = tryGetResponse(conversation, request);
+
+		HttpUtils.println(conversation, request, response);
+		assertTrue("列表-成功", response.getText().indexOf("success") != -1);
+
 	}
 
 	/**
