@@ -35,6 +35,7 @@ public class ShareTest extends AbstractHttpTest {
 		
 		ShareTest o = new ShareTest();
 		o.testshare_getEmotSuccess();
+		o.testarticleList();
 	}
 
 	/**
@@ -46,6 +47,20 @@ public class ShareTest extends AbstractHttpTest {
 		return new TestSuite(ShareTest.class);
 	}
 
+
+	public void testarticleList() throws Exception {
+		WebConversation conversation = new WebConversation();
+		// GetMethodWebRequest
+		WebRequest request = new GetMethodWebRequest(TestConstants.host
+				+ "rest/share/articleList.json"+user.addParameter_JSESSIONID());
+
+		WebResponse response = tryGetResponse(conversation, request);
+
+		HttpUtils.println(conversation, request, response);
+		assertTrue("机构列表-成功", response.getText().indexOf("success") != -1);
+
+	}
+	
 
 	public void testshare_getEmotSuccess() throws Exception {
 		WebConversation conversation = new WebConversation();

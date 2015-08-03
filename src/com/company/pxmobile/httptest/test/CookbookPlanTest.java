@@ -54,7 +54,7 @@ public class CookbookPlanTest extends AbstractHttpTest {
 		// GetMethodWebRequest
 		WebRequest request = new GetMethodWebRequest(TestConstants.host
 				+ "rest/cookbookplan/list.json"+user.addParameter_JSESSIONID()
-				+"&begDateStr=2015-06-10&endDateStr=2015-08-20&groupuuid=943f1e95-f845-41b1-8520-9de3428dc888");
+				+"&begDateStr=2015-06-10&endDateStr=2015-08-20&groupuuid=ef3fd53f-03f7-42d6-8258-969a4a980f58");
 
 		WebResponse response = tryGetResponse(conversation, request);
 

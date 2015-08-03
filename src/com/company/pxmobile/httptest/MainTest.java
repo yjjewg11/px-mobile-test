@@ -8,6 +8,7 @@ import com.company.pxmobile.httptest.test.DianzanTest;
 import com.company.pxmobile.httptest.test.MessageTest;
 import com.company.pxmobile.httptest.test.PushMessageTest;
 import com.company.pxmobile.httptest.test.ShareTest;
+import com.company.pxmobile.httptest.test.StudentSignRecordTest;
 import com.company.pxmobile.httptest.test.UserinfoTest;
 
 public class MainTest {
@@ -53,6 +54,10 @@ public class MainTest {
 		{
 			PushMessageTest o = new PushMessageTest();
 			o.queryMy();
+		}
+		{
+			StudentSignRecordTest o = new StudentSignRecordTest();
+			o.testqueryMySuccess();
 		}
 	}
   /**
