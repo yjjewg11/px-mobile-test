@@ -28,7 +28,7 @@ public class MessageTest  extends AbstractHttpTest {
 	  public static void main(String args[]) throws Exception {
 	      //junit.textui.TestRunner.run( suite() );
 		  MessageTest o=new MessageTest();
-	   // o.testsaveToTeacher();
+	    o.testsaveToTeacher();
 	   // o.queryMyTimely();
 	  //  o.queryMessageByMy();
 	    o.testsaveTosaveToLeader();
@@ -97,7 +97,7 @@ public class MessageTest  extends AbstractHttpTest {
 
 			MessageJsonform form = new MessageJsonform();
 			form.setMessage("<p>老师你好</p>");
-			form.setRevice_useruuid("75581b37-49e8-47dc-822c-872747449c57");
+			form.setRevice_useruuid("f14a41fb-22da-48e2-b0b2-22b2ca40d46b");
 			String json = JSONUtils.getJsonString(form);
 			HttpUtils.printjson(json);
 			ByteArrayInputStream input = new ByteArrayInputStream(
@@ -118,7 +118,7 @@ public class MessageTest  extends AbstractHttpTest {
 
 			MessageJsonform form = new MessageJsonform();
 			form.setMessage("<p>老师你好</p>");
-			form.setRevice_useruuid("ef3fd53f-03f7-42d6-8258-969a4a980f58");
+			form.setRevice_useruuid("group_wj1");
 			String json = JSONUtils.getJsonString(form);
 			HttpUtils.printjson(json);
 			ByteArrayInputStream input = new ByteArrayInputStream(

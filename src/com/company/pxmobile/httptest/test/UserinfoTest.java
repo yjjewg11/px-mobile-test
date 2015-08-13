@@ -32,7 +32,7 @@ public class UserinfoTest extends AbstractHttpTest {
     return sessionid;
   }
   //13628037996,13628037994
-  static public String tel="13628037995";
+  static public String tel="13628037996";
   /**
    * run this testcase as a suite from the command line
    * @param args - ignored
@@ -47,6 +47,7 @@ public class UserinfoTest extends AbstractHttpTest {
     //o.testLoginFailed();
     //o.testUpdateSuccess();
     o.testlistByMyChildrenuccess();
+    o.testgetTeacherPhoneBook();
    
   }
   
@@ -57,7 +58,20 @@ public class UserinfoTest extends AbstractHttpTest {
   public static Test suite() {
       return new TestSuite( UserinfoTest.class );
   }
-  
+
+	public void testgetTeacherPhoneBook() throws Exception {
+		WebConversation conversation = new WebConversation();
+		// GetMethodWebRequest
+		WebRequest request = new GetMethodWebRequest(TestConstants.host
+				+ "rest/userinfo/getTeacherPhoneBook.json"+this.addParameter_JSESSIONID()
+				);
+
+		WebResponse response = tryGetResponse(conversation, request);
+
+		HttpUtils.println(conversation, request, response);
+		assertTrue("列表-成功", response.getText().indexOf("success") != -1);
+
+	}
 
   /**
    * Verifies that submitting the login form without entering a name results in a page
