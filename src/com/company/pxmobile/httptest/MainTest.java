@@ -49,6 +49,8 @@ public class MainTest {
 		{
 			ShareTest o = new ShareTest();
 			o.testshare_getEmotSuccess();
+			o.testarticleList();
+			o.testgetArticleJSON();
 		}
 		
 		{
