@@ -32,7 +32,7 @@ public class FavoritesTest extends AbstractHttpTest {
     //o.testgetClassNewsByMy();
     //o.testgetUserInfoSuccess();
     //o.testLoginFailed();
-    o.testQuery();
+    o.testSaveSuccess();
    
   }
   

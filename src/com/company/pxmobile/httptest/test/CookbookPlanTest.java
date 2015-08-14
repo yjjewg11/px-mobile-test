@@ -31,9 +31,9 @@ public class CookbookPlanTest extends AbstractHttpTest {
 		
 		CookbookPlanTest o = new CookbookPlanTest();
 		// o.testRegSuccess();
-		o.testListSuccess();
+		o.testAddSuccess();
 //o.testGroupListSuccess();
-		o.testGetSuccess();
+		//o.testGetSuccess();
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class CookbookPlanTest extends AbstractHttpTest {
 
 		CookbookPlanJsonform form = new CookbookPlanJsonform();
 
-		form.setGroupuuid("9bf8604b-80b3-49bb-847c-b87f56d4bcb8");
+		form.setGroupuuid("group_wj1");
 		form.setPlandateStr("2015-06-13");
 		form.setTime_1("7e74cf4a-cb9b-4007-ad44-d27a4136b66b");
 
