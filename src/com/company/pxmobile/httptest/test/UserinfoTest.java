@@ -23,10 +23,10 @@ import com.meterware.httpunit.WebResponse;
 
 public class UserinfoTest extends AbstractHttpTest {
   
-  public String sessionid=null;
+  public static String sessionid=null;
   
   public String getLoginSessionid() throws Exception {
-    if(this.sessionid==null){
+    if(sessionid==null){
       testLoginSuccess();
     }
     return sessionid;
@@ -48,7 +48,7 @@ public class UserinfoTest extends AbstractHttpTest {
     //o.testUpdateSuccess();
     o.testlistByMyChildrenuccess();
     o.testgetTeacherPhoneBook();
-    o.testUpdatePasswordSuccess();
+    //o.testUpdatePasswordSuccess();
    
   }
   
@@ -135,7 +135,7 @@ public class UserinfoTest extends AbstractHttpTest {
         
       if (response.getContentType().equals("application/json")) {
         JSONObject jsonObject = JSONObject.fromObject(response.getText());
-        this.sessionid=(String)jsonObject.get("JSESSIONID");
+        sessionid=(String)jsonObject.get("JSESSIONID");
         //System.out.println("JSESSIONID="+this.sessionid); // Benju
        }
 //

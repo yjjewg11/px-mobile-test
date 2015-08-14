@@ -69,8 +69,8 @@ public class MainTest {
   public static void main(String[] args) throws Exception {
     {
     	
-    	int c=4000;
-    	 c=1;
+    	int c=400;
+    	//c=10;
     	for(int i=0;i<c;i++){
     		   Thread t = new Thread(new Runnable(){  
     	            public void run(){  
