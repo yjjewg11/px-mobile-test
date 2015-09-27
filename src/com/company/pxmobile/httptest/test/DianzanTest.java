@@ -1,12 +1,19 @@
 package com.company.pxmobile.httptest.test;
 
+import java.io.ByteArrayInputStream;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import com.company.news.SystemConstants;
+import com.company.news.json.JSONUtils;
+import com.company.news.jsonform.ClassNewsDianzanJsonform;
+import com.company.news.jsonform.FavoritesJsonform;
 import com.company.pxmobile.httptest.AbstractHttpTest;
 import com.company.pxmobile.httptest.HttpUtils;
 import com.company.pxmobile.httptest.TestConstants;
 import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.PostMethodWebRequest;
 import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
@@ -23,6 +30,7 @@ public class DianzanTest extends AbstractHttpTest {
       //junit.textui.TestRunner.run( suite() );
     DianzanTest o=new DianzanTest();
     o.testgetClassNewsByMy();
+    o.testSaveSuccess();
     //o.testgetUserInfoSuccess();
     //o.testLoginFailed();
    
@@ -56,4 +64,34 @@ public class DianzanTest extends AbstractHttpTest {
 //
 //      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
   }
+  
+  
+	/**
+	 * Verifies that submitting the login form without entering a name results
+	 * in a page containing the text "Login failed"
+	 **/
+	public void testSaveSuccess() throws Exception {
+		WebConversation conversation = new WebConversation();
+		// GetMethodWebRequest
+
+		ClassNewsDianzanJsonform s = new ClassNewsDianzanJsonform();
+
+		s.setNewsuuid("rrrrrrrrrrrrrrrrrrrrrrr");
+		s.setType(1);
+		s.setMessage("今天晚上有活动");
+
+		String json = JSONUtils.getJsonString(s);
+		HttpUtils.printjson(json);
+		ByteArrayInputStream input = new ByteArrayInputStream(
+				json.getBytes(SystemConstants.Charset));
+		PostMethodWebRequest request = new PostMethodWebRequest(
+				TestConstants.host + "rest/dianzan/save.json"+user.addParameter_JSESSIONID(), input,
+				TestConstants.contentType);
+
+		WebResponse response = tryGetResponse(conversation, request);
+
+		HttpUtils.println(conversation, request, response);
+		assertTrue("增加-成功", response.getText().indexOf("success") != -1);
+
+	}
 }
