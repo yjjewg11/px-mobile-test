@@ -12,7 +12,32 @@ import com.company.pxmobile.httptest.test.StudentSignRecordTest;
 import com.company.pxmobile.httptest.test.UserinfoTest;
 
 public class MainTest {
+	 /**
+	   * @param args
+	   * @throws Exception
+	   */
+	  public static void main(String[] args) throws Exception {
+	    {
+	    	
+	    	int c=4000;
+	    	c=1;
+	    	for(int i=0;i<c;i++){
+	    		   Thread t = new Thread(new Runnable(){  
+	    	            public void run(){  
+		    	           try {
+							new MainTest().doman();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+	    	            }});  
+	    	        t.start();  
+	    	}
+			
 
+
+	    }
+	  }
 	
 	public void doman() throws Exception{
 		{
@@ -62,30 +87,5 @@ public class MainTest {
 			o.testqueryMySuccess();
 		}
 	}
-  /**
-   * @param args
-   * @throws Exception
-   */
-  public static void main(String[] args) throws Exception {
-    {
-    	
-    	int c=400;
-    	//c=10;
-    	for(int i=0;i<c;i++){
-    		   Thread t = new Thread(new Runnable(){  
-    	            public void run(){  
-	    	           try {
-						new MainTest().doman();
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-    	            }});  
-    	        t.start();  
-    	}
-		
-
-
-    }
-  }
+ 
 }

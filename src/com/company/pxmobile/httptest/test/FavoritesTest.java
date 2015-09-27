@@ -57,8 +57,8 @@ public class FavoritesTest extends AbstractHttpTest {
 
 		FavoritesJsonform s = new FavoritesJsonform();
 
-		s.setReluuid("4a613d79-4630-4527-92d2-77db39bf972c");
-		s.setType(1);
+		s.setReluuid("e40ceeaa-3802-46ac-8251-bffb508e7fa3");
+		s.setType(0);
 		s.setTitle("今天晚上有活动");
 
 		String json = JSONUtils.getJsonString(s);

@@ -28,11 +28,11 @@ public class MessageTest  extends AbstractHttpTest {
 	  public static void main(String args[]) throws Exception {
 	      //junit.textui.TestRunner.run( suite() );
 		  MessageTest o=new MessageTest();
-	    o.testsaveToTeacher();
+	  //  o.testsaveToTeacher();
 	   // o.queryMyTimely();
 	  //  o.queryMessageByMy();
-	    o.testsaveTosaveToLeader();
-	    //o.testLoginFailed();
+	  //  o.testsaveTosaveToLeader();
+	    o.testgetTeacherInfo();
 	   
 	  }
 	  
@@ -86,6 +86,27 @@ public class MessageTest  extends AbstractHttpTest {
 	//
 //	      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
 	  }
+	  /**
+	   * Verifies that submitting the login form without entering a name results in a page
+	   * containing the text "Login failed"
+	   **/
+	  public void testgetTeacherInfo() throws Exception {
+	      WebConversation     conversation = new WebConversation();
+	      //GetMethodWebRequest
+	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/userinfo/getTeacherInfo.json" );
+	      request.setParameter("JSESSIONID",  user.getLoginSessionid());
+	      request.setParameter("uuid",  "0952a38a-f449-4cf2-b527-147229b42151");
+		     
+	      
+	        WebResponse response = tryGetResponse(conversation, request );
+//	      WebForm loginForm = response.getForms()[0];
+//	      request = loginForm.getRequest();
+//	      response = conversation.getResponse( request );
+	        HttpUtils.println(conversation, request, response);
+	        assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
+	//
+//	      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
+	  }
 
 	  /**
 	   * Verifies that submitting the login form without entering a name results in a page
@@ -96,7 +117,7 @@ public class MessageTest  extends AbstractHttpTest {
 			// GetMethodWebRequest
 
 			MessageJsonform form = new MessageJsonform();
-			form.setMessage("<p>老师你好</p>");
+			form.setMessage("<p>老师你好11</p>");
 			form.setRevice_useruuid("f14a41fb-22da-48e2-b0b2-22b2ca40d46b");
 			String json = JSONUtils.getJsonString(form);
 			HttpUtils.printjson(json);

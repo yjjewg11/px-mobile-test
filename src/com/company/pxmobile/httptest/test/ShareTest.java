@@ -34,8 +34,8 @@ public class ShareTest extends AbstractHttpTest {
 		// junit.textui.TestRunner.run( suite() );
 		
 		ShareTest o = new ShareTest();
-		o.testshare_getEmotSuccess();
-		o.testarticleList();
+		//o.testshare_getEmotSuccess();
+		//o.testarticleList();
 		o.testgetArticleJSON();
 	}
 

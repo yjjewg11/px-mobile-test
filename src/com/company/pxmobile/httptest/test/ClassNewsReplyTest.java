@@ -58,7 +58,9 @@ public class ClassNewsReplyTest extends AbstractHttpTest {
 		form.setContent("第一条回复额");
 		form.setType(0);
 
-
+		form.setNewsuuid("422dbd87-5da7-45e4-a911-00834958788f");
+		form.setContent("第一条回复额");
+		form.setType(99);
 
 
 		String json = JSONUtils.getJsonString(form);

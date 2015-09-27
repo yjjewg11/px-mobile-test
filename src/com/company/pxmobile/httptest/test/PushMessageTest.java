@@ -9,6 +9,7 @@ import com.company.news.SystemConstants;
 import com.company.news.json.JSONUtils;
 import com.company.news.jsonform.AnnouncementsJsonform;
 import com.company.news.jsonform.MessageJsonform;
+import com.company.news.jsonform.TeachingPlanJsonform;
 import com.company.pxmobile.httptest.AbstractHttpTest;
 import com.company.pxmobile.httptest.HttpUtils;
 import com.company.pxmobile.httptest.TestConstants;
@@ -31,7 +32,7 @@ public class PushMessageTest  extends AbstractHttpTest {
 	  //  o.testsaveToTeacher();
 	   // o.queryMyTimely();
 	    o.queryMy();
-	    //o.testLoginFailed();
+	    o.testreadSuccess();
 	   
 	  }
 	  
@@ -44,7 +45,27 @@ public class PushMessageTest  extends AbstractHttpTest {
 	  }
 	  
 	  
+	  public void testreadSuccess() throws Exception {
+			WebConversation conversation = new WebConversation();
+			// GetMethodWebRequest
+			TeachingPlanJsonform t = new TeachingPlanJsonform();
 
+
+			String json = JSONUtils.getJsonString(t);
+			HttpUtils.printjson(json);
+			ByteArrayInputStream input = new ByteArrayInputStream(
+					json.getBytes(SystemConstants.Charset));
+			PostMethodWebRequest request = new PostMethodWebRequest(
+					TestConstants.host + "rest/pushMessage/read.json"+user.addParameter_JSESSIONID()+"&uuid=123", input,
+					TestConstants.contentType);
+
+			
+			WebResponse response = tryGetResponse(conversation, request);
+
+			HttpUtils.println(conversation, request, response);
+			assertTrue("增加-成功", response.getText().indexOf("success") != -1);
+
+		}
 
 	  /**
 	   * Verifies that submitting the login form without entering a name results in a page
@@ -55,17 +76,11 @@ public class PushMessageTest  extends AbstractHttpTest {
 	      //GetMethodWebRequest
 	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/pushMessage/queryMy.json" );
 	      request.setParameter("JSESSIONID",  user.getLoginSessionid());
-	    //  request.setParameter("uuid",  "75581b37-49e8-47dc-822c-872747449c57");
 		     
 	      
 	        WebResponse response = tryGetResponse(conversation, request );
-//	      WebForm loginForm = response.getForms()[0];
-//	      request = loginForm.getRequest();
-//	      response = conversation.getResponse( request );
 	        HttpUtils.println(conversation, request, response);
 	        assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
-	//
-//	      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
 	  }
 
 }
