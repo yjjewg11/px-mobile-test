@@ -30,12 +30,25 @@ public class PxTeachingPlanTest extends AbstractHttpTest {
 		// junit.textui.TestRunner.run( suite() );
 		
 		PxTeachingPlanTest o = new PxTeachingPlanTest();
-		// o.testRegSuccess();
+		 o.nextListSuccess();
 	//o.testGetSuccess();
-o.testListSuccess();
+//o.testListSuccess();
 	//	o.testGetSuccess();
 	}
 
+	
+	public void nextListSuccess() throws Exception {
+		WebConversation conversation = new WebConversation();
+		// GetMethodWebRequest
+		WebRequest request = new GetMethodWebRequest(TestConstants.host
+				+ "rest/pxteachingplan/nextList.json"+user.addParameter_JSESSIONID());
+
+		WebResponse response = tryGetResponse(conversation, request);
+
+		HttpUtils.println(conversation, request, response);
+		assertTrue("列表-成功", response.getText().indexOf("success") != -1);
+
+	}
 	/**
 	 * supply this test cases as part of a suite
 	 * 

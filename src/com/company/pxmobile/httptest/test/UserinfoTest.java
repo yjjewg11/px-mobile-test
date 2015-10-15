@@ -47,7 +47,7 @@ public class UserinfoTest extends AbstractHttpTest {
     //o.testLoginFailed();
     //o.testUpdateSuccess();
    // o.testlistByMyChildrenuccess();
-   // o.testgetTeacherPhoneBook();
+    o.testgetTeacherPhoneBook();
 //    o.testUpdatePasswordSuccess();
     //o.testupdatepasswordBySmsSuccess();
    
