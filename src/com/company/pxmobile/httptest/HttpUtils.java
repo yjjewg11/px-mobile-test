@@ -6,7 +6,7 @@ import com.meterware.httpunit.WebResponse;
 
 public class HttpUtils {
   public static void println(WebConversation conversation, WebRequest request,WebResponse response) throws Exception{
-    System.out.println("request:Method='"+request.getMethod()+"',URL='"+request.getURL()+"'"+",ResponseCode="+response.getResponseCode());
+    System.out.println("\n request:Method='"+request.getMethod()+"',URL='"+request.getURL()+"'"+",ResponseCode="+response.getResponseCode());
     System.out.println("response:");
     System.out.println(response.getText());
   }

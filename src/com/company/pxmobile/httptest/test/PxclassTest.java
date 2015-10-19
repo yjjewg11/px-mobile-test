@@ -21,8 +21,8 @@ public class PxclassTest extends AbstractHttpTest {
    */
   public static void main(String args[]) throws Exception {
     PxclassTest o=new PxclassTest();
-    o.testlistByStudent();
-   o.testlistByuuids();
+    o.listMyChildClassByPage();
+  // o.testlistByuuids();
   }
   
   /**
@@ -33,7 +33,18 @@ public class PxclassTest extends AbstractHttpTest {
       return new TestSuite( PxclassTest.class );
   }
   
-
+  public void listMyChildClassByPage() throws Exception {
+      WebConversation     conversation = new WebConversation();
+      //GetMethodWebRequest
+      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/pxclass/listMyChildClassByPage.json" );
+      request.setParameter("JSESSIONID",  user.getLoginSessionid());
+     request.setParameter("isdisable",  "0");
+      
+      
+        WebResponse response = tryGetResponse(conversation, request );
+        HttpUtils.println(conversation, request, response);
+        assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
+  }
   /**
    * Verifies that submitting the login form without entering a name results in a page
    * containing the text "Login failed"
@@ -44,6 +55,7 @@ public class PxclassTest extends AbstractHttpTest {
       WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/pxclass/listByStudent.json" );
       request.setParameter("JSESSIONID",  user.getLoginSessionid());
       request.setParameter("student_uuid",  "49fda47a-c224-41e8-8ad4-53dbef749edf");
+      
       
       
         WebResponse response = tryGetResponse(conversation, request );

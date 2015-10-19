@@ -31,18 +31,32 @@ public class PxTeachingPlanTest extends AbstractHttpTest {
 		
 		PxTeachingPlanTest o = new PxTeachingPlanTest();
 		 o.nextListSuccess();
-	//o.testGetSuccess();
+	o.listAllByclassuuid();
 //o.testListSuccess();
 	//	o.testGetSuccess();
 	}
 
 	
+	public void listAllByclassuuid() throws Exception {
+		WebConversation conversation = new WebConversation();
+		// GetMethodWebRequest
+		WebRequest request = new GetMethodWebRequest(TestConstants.host
+				+ "rest/pxteachingplan/listAllByclassuuid.json");
+
+		  request.setParameter("JSESSIONID",  user.getLoginSessionid());
+		 request.setParameter("classuuid",  "1be24255-56eb-4a62-b518-aa78b8f6f208");
+		WebResponse response = tryGetResponse(conversation, request);
+
+		HttpUtils.println(conversation, request, response);
+		assertTrue("列表-成功", response.getText().indexOf("success") != -1);
+
+	}
 	public void nextListSuccess() throws Exception {
 		WebConversation conversation = new WebConversation();
 		// GetMethodWebRequest
 		WebRequest request = new GetMethodWebRequest(TestConstants.host
 				+ "rest/pxteachingplan/nextList.json"+user.addParameter_JSESSIONID());
-
+		
 		WebResponse response = tryGetResponse(conversation, request);
 
 		HttpUtils.println(conversation, request, response);

@@ -21,7 +21,8 @@ public class PxCourseTest extends AbstractHttpTest {
    */
   public static void main(String args[]) throws Exception {
     PxCourseTest o=new PxCourseTest();
-    o.testlistByStudent();
+    o.testqueryByPage();
+    o.testGet();
    
   }
   
@@ -38,12 +39,28 @@ public class PxCourseTest extends AbstractHttpTest {
    * Verifies that submitting the login form without entering a name results in a page
    * containing the text "Login failed"
    **/
-  public void testlistByStudent() throws Exception {
+  public void testqueryByPage() throws Exception {
       WebConversation     conversation = new WebConversation();
       //GetMethodWebRequest
-      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/pxCourse/list.json" );
+      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/pxCourse/queryByPage.json" );
       request.setParameter("JSESSIONID",  user.getLoginSessionid());
-      request.setParameter("JSESSIONID",  user.getLoginSessionid());
+      request.setParameter("map_point",  "1,1");
+        WebResponse response = tryGetResponse(conversation, request );
+        HttpUtils.println(conversation, request, response);
+        assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
+  }
+  
+
+  /**
+   * Verifies that submitting the login form without entering a name results in a page
+   * containing the text "Login failed"
+   **/
+  public void testGet() throws Exception {
+      WebConversation     conversation = new WebConversation();
+      //GetMethodWebRequest
+      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/pxCourse/ba60043b-564b-445f-b78b-d49e2719c079.json?mappoint=1,1&JSESSIONID=7fIUrEkjyqtXw3WojMNJUKOp.undefined" );
+//      request.setParameter("JSESSIONID",  user.getLoginSessionid());
+//      request.setParameter("mappoint",  "1,1");
         WebResponse response = tryGetResponse(conversation, request );
         HttpUtils.println(conversation, request, response);
         assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
