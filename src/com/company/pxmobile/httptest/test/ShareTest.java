@@ -34,9 +34,10 @@ public class ShareTest extends AbstractHttpTest {
 		// junit.textui.TestRunner.run( suite() );
 		
 		ShareTest o = new ShareTest();
+		o.testgetPxbenefitJSON();
 		//o.testshare_getEmotSuccess();
 		//o.testarticleList();
-		o.testgetArticleJSON();
+		//o.testgetArticleJSON();
 	}
 
 	/**
@@ -48,7 +49,30 @@ public class ShareTest extends AbstractHttpTest {
 		return new TestSuite(ShareTest.class);
 	}
 
-	
+	public void testpxbenefitList() throws Exception {
+		WebConversation conversation = new WebConversation();
+		// GetMethodWebRequest
+		WebRequest request = new GetMethodWebRequest(TestConstants.host
+				+ "rest/share/pxbenefitList.json"+user.addParameter_JSESSIONID());
+
+		WebResponse response = tryGetResponse(conversation, request);
+
+		HttpUtils.println(conversation, request, response);
+		assertTrue("机构列表-成功", response.getText().indexOf("success") != -1);
+
+	}
+	public void testgetPxbenefitJSON() throws Exception {
+		WebConversation conversation = new WebConversation();
+		// GetMethodWebRequest
+		WebRequest request = new GetMethodWebRequest(TestConstants.host
+				+ "rest/share/getPxbenefitJSON.json"+user.addParameter_JSESSIONID()+"&uuid=0398e4af-52d2-41e8-95d3-b70cc8d54cbb");
+
+		WebResponse response = tryGetResponse(conversation, request);
+
+		HttpUtils.println(conversation, request, response);
+		assertTrue("机构列表-成功", response.getText().indexOf("success") != -1);
+
+	}
 	public void testarticleList() throws Exception {
 		WebConversation conversation = new WebConversation();
 		// GetMethodWebRequest

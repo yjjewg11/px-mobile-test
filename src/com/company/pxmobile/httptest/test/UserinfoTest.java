@@ -32,7 +32,7 @@ public class UserinfoTest extends AbstractHttpTest {
     return sessionid;
   }
   //13628037996,13628037994,13668392967(huwenming)
-  static public String tel="13628037996";
+  static public String tel=TestConstants.tel;
   /**
    * run this testcase as a suite from the command line
    * @param args - ignored

@@ -12,7 +12,7 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
 
-public class PxCourseTest extends AbstractHttpTest {
+public class PxGroupTest extends AbstractHttpTest {
 	  public UserinfoTest user= new UserinfoTest();
   /**
    * run this testcase as a suite from the command line
@@ -20,8 +20,8 @@ public class PxCourseTest extends AbstractHttpTest {
    * @throws Exception 
    */
   public static void main(String args[]) throws Exception {
-    PxCourseTest o=new PxCourseTest();
-    o.testqueryByPage();
+    PxGroupTest o=new PxGroupTest();
+    o.testpxlistByPage();
     //o.testGet();
    
   }
@@ -31,24 +31,21 @@ public class PxCourseTest extends AbstractHttpTest {
    * @return
    */
   public static Test suite() {
-      return new TestSuite( PxCourseTest.class );
+      return new TestSuite( PxGroupTest.class );
   }
   
 
   /**
    * Verifies that submitting the login form without entering a name results in a page
    * containing the text "Login failed"
-   * http://120.25.212.44/px-mobile/rest/pxCourse/queryByPage.json
-   * ?pageNo=1&mappoint=30.603341%2C103.985898&teacheruuid=&groupuuid=&type=4
-
    **/
-  public void testqueryByPage() throws Exception {
+  public void testpxlistByPage() throws Exception {
       WebConversation     conversation = new WebConversation();
       //GetMethodWebRequest
-      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/pxCourse/queryByPage.json" );
+      //http://120.25.212.44/px-mobile/rest/group/pxlistByPage.json?pageNo=1&map_point=30.603341%2C103.985898
+      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/group/pxlistByPage.json" );
       request.setParameter("JSESSIONID",  user.getLoginSessionid());
-//      request.setParameter("map_point",  "-1.0%2C-1.0");
-//      request.setParameter("map_point",  "103.985898%2C30.603341");
+      request.setParameter("map_point",  "30.603341%2C103.985898");
       request.setParameter("sort",  "distance");
         WebResponse response = tryGetResponse(conversation, request );
         HttpUtils.println(conversation, request, response);
