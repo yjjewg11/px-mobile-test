@@ -22,7 +22,9 @@ import com.meterware.httpunit.WebResponse;
 
 
 public class UserinfoTest extends AbstractHttpTest {
-  
+
+	  public String cookiesessionid="CD660875E188A788D6022F70ABA97701";
+	
   public String sessionid=null;
   
   public String getLoginSessionid() throws Exception {
@@ -41,13 +43,15 @@ public class UserinfoTest extends AbstractHttpTest {
   public static void main(String args[]) throws Exception {
       //junit.textui.TestRunner.run( suite() );
     UserinfoTest o=new UserinfoTest();
- //   o.testAddSuccess();
-    o.testLoginSuccess();
-//    o.testgetUserInfoSuccess();
-    //o.testLoginFailed();
-    //o.testUpdateSuccess();
-   // o.testlistByMyChildrenuccess();
-    o.testgetTeacherPhoneBook();
+//    o.testlogoutSuccess();
+    o.testgetUserInfoByCookieSessionidSuccess();
+    //o.getNewMsgNumber();
+   // o.testLoginSuccess();
+ //  o.testgetUserInfoSuccess();
+//    //o.testLoginFailed();
+//    //o.testUpdateSuccess();
+//   // o.testlistByMyChildrenuccess();
+//    o.testgetTeacherPhoneBook();
 //    o.testUpdatePasswordSuccess();
     //o.testupdatepasswordBySmsSuccess();
    
@@ -72,7 +76,6 @@ public class UserinfoTest extends AbstractHttpTest {
 
 		HttpUtils.println(conversation, request, response);
 		assertTrue("列表-成功", response.getText().indexOf("success") != -1);
-
 	}
 
   /**
@@ -125,8 +128,12 @@ public class UserinfoTest extends AbstractHttpTest {
   public void testLoginSuccess() throws Exception {
       WebConversation     conversation = new WebConversation();
       //GetMethodWebRequest
-      WebRequest  request = new PostMethodWebRequest( TestConstants.host+"rest/userinfo/login.json?loginname="+tel+"&password="+MD5Until.getMD5String("123456") );
-        WebResponse response = tryGetResponse(conversation, request );
+      String url= TestConstants.host+"rest/userinfo/login.json?loginname="+tel+"&password="+MD5Until.getMD5String("123456");
+      url+="&JSESSIONID=35FD5D67A394BFEB5E3EB845E42E88C9";
+      WebRequest  request = new PostMethodWebRequest(url);
+    //  +"&md5=111018fb8a7606b29c55ce86d89406504"  
+      WebResponse response = tryGetResponse(conversation, request );
+      request.setHeaderField("Cookie", "JSESSIONID=00EA14A47D37D34B767FD20AF3ECC3C8");
 //      WebForm loginForm = response.getForms()[0];
 //      request = loginForm.getRequest();
 //      response = conversation.getResponse( request );
@@ -137,11 +144,13 @@ public class UserinfoTest extends AbstractHttpTest {
       if (response.getContentType().equals("application/json")) {
         JSONObject jsonObject = JSONObject.fromObject(response.getText());
         this.sessionid=(String)jsonObject.get("JSESSIONID");
-        //System.out.println("JSESSIONID="+this.sessionid); // Benju
+        System.out.println("JSESSIONID="+this.sessionid); // Benju
        }
 //
 //      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
   }
+  
+
   
   /**
    * Verifies that submitting the login form without entering a name results in a page
@@ -152,6 +161,8 @@ public class UserinfoTest extends AbstractHttpTest {
       //GetMethodWebRequest
       WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/userinfo/getUserinfo.json" );
       request.setParameter("JSESSIONID",  this.sessionid);
+     // request.setParameter("md5",  "11018fb8a7606b29c55ce86d89406504");
+      
         WebResponse response = tryGetResponse(conversation, request );
 //      WebForm loginForm = response.getForms()[0];
 //      request = loginForm.getRequest();
@@ -198,8 +209,9 @@ public class UserinfoTest extends AbstractHttpTest {
   public void testlogoutSuccess() throws Exception {
       WebConversation     conversation = new WebConversation();
       //GetMethodWebRequest
-      WebRequest  request = new PostMethodWebRequest( TestConstants.host+"rest/userinfo/logout.json"+this.addParameter_JSESSIONID());
+      WebRequest  request = new PostMethodWebRequest( TestConstants.host+"rest/userinfo/logout.json");
         WebResponse response = tryGetResponse(conversation, request );
+        request.setHeaderField("Cookie", "JSESSIONID="+cookiesessionid);
 //      WebForm loginForm = response.getForms()[0];
 //      request = loginForm.getRequest();
 //      response = conversation.getResponse( request );
@@ -320,4 +332,50 @@ public class UserinfoTest extends AbstractHttpTest {
 	      assertTrue( "成功", response.getText().indexOf( "status" ) != -1 );
 	      
 	  }
+	  
+	  public void getNewMsgNumber() throws Exception {
+	      WebConversation     conversation = new WebConversation();
+	      //GetMethodWebRequest
+	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/userinfo/getNewMsgNumber.json" );
+	      request.setParameter("JSESSIONID",  this.getLoginSessionid());
+	      request.setParameter("pageNo",  "1");
+//	      request.setParameter("map_point",  "-1.0%2C-1.0");
+//	      request.setParameter("map_point",  "103.985898%2C30.603341");
+	      request.setParameter("sort",  "distance");
+	        WebResponse response = tryGetResponse(conversation, request );
+	        HttpUtils.println(conversation, request, response);
+	        assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
+	  }
+	  
+	  
+	  /**
+	   * Verifies that submitting the login form without entering a name results in a page
+	   * containing the text "Login failed"
+	   **/
+	  public void testgetUserInfoByCookieSessionidSuccess() throws Exception {
+	      WebConversation     conversation = new WebConversation();
+	      //GetMethodWebRequest
+	     // WebRequest  request = new GetMethodWebRequest( "http://120.25.212.44/px-rest/rest/userinfo/getUserinfo.json" );
+	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/userinfo/getUserinfo.json" );
+		    
+	      //  request.setParameter("JSESSIONID",  this.sessionid);
+	      //request.setParameter("md5",  "5cc9e04714b667a2fd6a7450165f266c1");
+	      request.setHeaderField("Cookie", "JSESSIONID="+cookiesessionid);
+	        WebResponse response = tryGetResponse(conversation, request );
+//	      WebForm loginForm = response.getForms()[0];
+//	      request = loginForm.getRequest();
+//	      response = conversation.getResponse( request );
+	        HttpUtils.println(conversation, request, response);
+	        assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
+	        
+	        
+	      if (response.getContentType().equals("application/json")) {
+	        JSONObject jsonObject = JSONObject.fromObject(response.getText());
+	        this.sessionid=(String)jsonObject.get("JSESSIONID");
+	        System.out.println("JSESSIONID="+this.sessionid); // Benju
+	       }
+	//
+//	      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
+	  }
+	  
 }

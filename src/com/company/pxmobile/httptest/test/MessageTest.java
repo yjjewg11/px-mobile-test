@@ -29,10 +29,11 @@ public class MessageTest  extends AbstractHttpTest {
 	      //junit.textui.TestRunner.run( suite() );
 		  MessageTest o=new MessageTest();
 	  //  o.testsaveToTeacher();
-	   // o.queryMyTimely();
-	  //  o.queryMessageByMy();
+		  o.testsaveTosaveToLeader();
+//		  o.queryByLeader();
+//	    o.queryByTeacher();
 	  //  o.testsaveTosaveToLeader();
-	    o.testgetTeacherInfo();
+//	    o.testgetTeacherInfo();
 	   
 	  }
 	  
@@ -64,12 +65,32 @@ public class MessageTest  extends AbstractHttpTest {
 //	//
 ////	      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
 //	  }
-
 	  /**
 	   * Verifies that submitting the login form without entering a name results in a page
 	   * containing the text "Login failed"
 	   **/
-	  public void queryMessageByMy() throws Exception {
+	  public void queryByLeader() throws Exception {
+	      WebConversation     conversation = new WebConversation();
+	      //GetMethodWebRequest
+	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/message/queryByLeader.json" );
+	      request.setParameter("JSESSIONID",  user.getLoginSessionid());
+	      request.setParameter("uuid",  "75581b37-49e8-47dc-822c-872747449c57");
+		     
+	      
+	        WebResponse response = tryGetResponse(conversation, request );
+//	      WebForm loginForm = response.getForms()[0];
+//	      request = loginForm.getRequest();
+//	      response = conversation.getResponse( request );
+	        HttpUtils.println(conversation, request, response);
+	        assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
+	//
+//	      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
+	  }
+	  /**
+	   * Verifies that submitting the login form without entering a name results in a page
+	   * containing the text "Login failed"
+	   **/
+	  public void queryByTeacher() throws Exception {
 	      WebConversation     conversation = new WebConversation();
 	      //GetMethodWebRequest
 	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/message/queryByTeacher.json" );

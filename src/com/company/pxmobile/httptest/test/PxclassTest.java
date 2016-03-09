@@ -21,8 +21,8 @@ public class PxclassTest extends AbstractHttpTest {
    */
   public static void main(String args[]) throws Exception {
     PxclassTest o=new PxclassTest();
-    o.listMyChildClassByPage();
-  // o.testlistclassTeacher();
+   // o.listMyChildClassByPage();
+   o.testlistclassTeacher();
   }
   
   /**
@@ -40,7 +40,7 @@ public class PxclassTest extends AbstractHttpTest {
 	      //GetMethodWebRequest
 	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/pxclass/listclassTeacher.json" );
 	      request.setParameter("JSESSIONID",  user.getLoginSessionid());
-	     request.setParameter("classuuid",  "9fe4065d-49f8-49ee-ae8b-35b61d57f5f4");
+	     request.setParameter("classuuid",  "1be24255-56eb-4a62-b518-aa78b8f6f208");
 	      
 	      
 	        WebResponse response = tryGetResponse(conversation, request );

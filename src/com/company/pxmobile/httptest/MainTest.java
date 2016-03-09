@@ -65,7 +65,7 @@ public class MainTest {
 			MessageTest o=new MessageTest();
 			//o.testsaveToTeacher();
 //			o.queryMyTimely();
-			o.queryMessageByMy();
+//			o.queryMessageByMy();
 		}
 		{
 			 DianzanTest o=new DianzanTest();

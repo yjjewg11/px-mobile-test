@@ -31,7 +31,7 @@ public class CookbookPlanTest extends AbstractHttpTest {
 		
 		CookbookPlanTest o = new CookbookPlanTest();
 		// o.testRegSuccess();
-		o.testAddSuccess();
+//		o.testAddSuccess();
 //o.testGroupListSuccess();
 		//o.testGetSuccess();
 	}
@@ -68,47 +68,47 @@ public class CookbookPlanTest extends AbstractHttpTest {
 	 * Verifies that submitting the login form without entering a name results
 	 * in a page containing the text "Login failed"
 	 **/
-	public void testAddSuccess() throws Exception {
-		WebConversation conversation = new WebConversation();
-		// GetMethodWebRequest
-
-		CookbookPlanJsonform form = new CookbookPlanJsonform();
-
-		form.setGroupuuid("group_wj1");
-		form.setPlandateStr("2015-06-13");
-		form.setTime_1("7e74cf4a-cb9b-4007-ad44-d27a4136b66b");
-
-		String json = JSONUtils.getJsonString(form);
-		HttpUtils.printjson(json);
-		ByteArrayInputStream input = new ByteArrayInputStream(
-				json.getBytes(SystemConstants.Charset));
-		PostMethodWebRequest request = new PostMethodWebRequest(
-				TestConstants.host + "rest/cookbookplan/save.json"+user.addParameter_JSESSIONID(), input,
-				TestConstants.contentType);
-
-		WebResponse response = tryGetResponse(conversation, request);
-
-		HttpUtils.println(conversation, request, response);
-		assertTrue("增加-成功", response.getText().indexOf("success") != -1);
-
-	}
+//	public void testAddSuccess() throws Exception {
+//		WebConversation conversation = new WebConversation();
+//		// GetMethodWebRequest
+//
+//		CookbookPlanJsonform form = new CookbookPlanJsonform();
+//
+//		form.setGroupuuid("group_wj1");
+//		form.setPlandateStr("2015-06-13");
+//		form.setTime_1("7e74cf4a-cb9b-4007-ad44-d27a4136b66b");
+//
+//		String json = JSONUtils.getJsonString(form);
+//		HttpUtils.printjson(json);
+//		ByteArrayInputStream input = new ByteArrayInputStream(
+//				json.getBytes(SystemConstants.Charset));
+//		PostMethodWebRequest request = new PostMethodWebRequest(
+//				TestConstants.host + "rest/cookbookplan/save.json"+user.addParameter_JSESSIONID(), input,
+//				TestConstants.contentType);
+//
+//		WebResponse response = tryGetResponse(conversation, request);
+//
+//		HttpUtils.println(conversation, request, response);
+//		assertTrue("增加-成功", response.getText().indexOf("success") != -1);
+//
+//	}
 
 	
-	public void testDeleteSuccess() throws Exception {
-		WebConversation conversation = new WebConversation();
-		// GetMethodWebRequest
-
-
-		PostMethodWebRequest request = new PostMethodWebRequest(
-				TestConstants.host + "rest/cookbookplan/delete.json"+user.addParameter_JSESSIONID()
-				+"&uuid=aeb7cedc-eed4-4c38-bf88-a723fd4f7a90");
-
-		WebResponse response = tryGetResponse(conversation, request);
-
-		HttpUtils.println(conversation, request, response);
-		assertTrue("成功", response.getText().indexOf("success") != -1);
-
-	}
+//	public void testDeleteSuccess() throws Exception {
+//		WebConversation conversation = new WebConversation();
+//		// GetMethodWebRequest
+//
+//
+//		PostMethodWebRequest request = new PostMethodWebRequest(
+//				TestConstants.host + "rest/cookbookplan/delete.json"+user.addParameter_JSESSIONID()
+//				+"&uuid=aeb7cedc-eed4-4c38-bf88-a723fd4f7a90");
+//
+//		WebResponse response = tryGetResponse(conversation, request);
+//
+//		HttpUtils.println(conversation, request, response);
+//		assertTrue("成功", response.getText().indexOf("success") != -1);
+//
+//	}
 	
 	public void testGetSuccess() throws Exception {
 		WebConversation conversation = new WebConversation();

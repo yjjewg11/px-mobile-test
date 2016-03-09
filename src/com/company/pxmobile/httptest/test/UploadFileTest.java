@@ -1,0 +1,125 @@
+package com.company.pxmobile.httptest.test;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+
+import net.sf.json.JSONObject;
+
+import com.company.pxmobile.httptest.AbstractHttpTest;
+import com.company.pxmobile.httptest.HttpUtils;
+import com.company.pxmobile.httptest.TestConstants;
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.PostMethodWebRequest;
+import com.meterware.httpunit.WebConversation;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+
+public class UploadFileTest extends AbstractHttpTest {
+	public UserinfoTest user = new UserinfoTest();
+	public String imgurl = null;
+	public Integer fileNumber = 0;
+
+	public static void main(String args[]) throws Exception {
+		// junit.textui.TestRunner.run( new TestSuite( UploadFileTest.class ));
+		UploadFileTest o = new UploadFileTest();
+		o.testupload();
+//o.testDeleteSuccess();
+		//o.testdownSuccess();
+		// new UploadFileTest().testdownMyheadSuccess();
+	}
+
+	/**
+	 * Verifies that submitting the login form without entering a name results
+	 * in a page containing the text "Login failed"
+	 **/
+	public void testupload() throws Exception {
+		String url = TestConstants.host + "rest/uploadFile/upload.json"
+				+"?type=1";
+		uploadImg(url);
+	}
+
+	public void uploadImg(String url) throws Exception {
+		WebConversation conversation = new WebConversation();
+		// GetMethodWebRequest
+		File file = new File("C:/test.jpg");
+
+		// WebForm webForm=new WebForm();
+
+		PostMethodWebRequest request = new PostMethodWebRequest(url, true);
+		  request.setHeaderField("Cookie", "JSESSIONID=C3F99A1208595C8D1334233603260249");
+	//  request.setHeaderField("Cookie", "JSESSIONID="+user.addParameter_JSESSIONID());
+		request.selectFile("file", file);
+		WebResponse response = tryGetResponse(conversation, request);
+		HttpUtils.println(conversation, request, response);
+		assertTrue("成功", response.getText().indexOf("success") != -1);
+		if (response.getContentType().equals("application/json")) {
+			JSONObject jsonObject = JSONObject.fromObject(response.getText());
+			this.imgurl = (String) jsonObject.get("imgurl");
+		}
+	}
+
+	/**
+	 * Verifies that submitting the login form without entering a name results
+	 * in a page containing the text "Login failed"
+	 **/
+	public void testdownSuccess() throws Exception {
+		WebConversation conversation = new WebConversation();
+		// GetMethodWebRequest
+		String url = TestConstants.host
+				+ "rest/uploadFile/getImgFile.json?guid=8af409254d666494014d666494110000";
+		// localhost
+		url = TestConstants.host
+				+ "rest/uploadFile/getImgFile.json?guid=402886fc4d617301014d6175688b0001";
+		if (this.imgurl != null) {
+			url = TestConstants.host + this.imgurl;
+		}
+		WebRequest request = new GetMethodWebRequest(url);
+		// request.setParameter("type", "1");
+		// request.setParameter(RestConstants.Return_JSESSIONID,
+		// user.getLoginSessionid());
+		WebResponse response = tryGetResponse(conversation, request);
+
+		// HttpUtils.println(conversation, request, response);
+		InputStream stream = response.getInputStream();
+		String disposition = response.getHeaderField("Content-Disposition");
+		String filename = HttpUtils.getFileNameByResponseHeader(disposition);
+		File file = new File("H:/work_资料/down/" + (fileNumber++) + filename);
+		FileOutputStream fileout = null;
+		int bytesRead = 0;
+		byte[] buffer = new byte[8192];
+		try {
+			fileout = new FileOutputStream(file);
+			while ((bytesRead = stream.read(buffer, 0, 8192)) != -1) {
+				fileout.write(buffer, 0, bytesRead);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (fileout != null)
+				fileout.close();
+			if (stream != null)
+				stream.close();
+		}
+		System.out.println("file down success.path=" + file.getAbsolutePath());
+		HttpUtils.printlnHeader(conversation, request, response);
+		assertTrue("成功", (response.getResponseCode() == 200));
+	}
+	
+	public void testDeleteSuccess() throws Exception {
+		WebConversation conversation = new WebConversation();
+		// GetMethodWebRequest
+
+
+		PostMethodWebRequest request = new PostMethodWebRequest(
+				TestConstants.host + "rest/uploadFile/delete.json"+user.addParameter_JSESSIONID()
+				+"&uuid=5d216fa9-9ce1-40b5-a118-ac8ba74db990");
+
+		WebResponse response = tryGetResponse(conversation, request);
+
+		HttpUtils.println(conversation, request, response);
+		assertTrue("成功", response.getText().indexOf("success") != -1);
+
+	}
+
+}

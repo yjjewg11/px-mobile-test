@@ -12,7 +12,7 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
 
-public class PxCourseTest extends AbstractHttpTest {
+public class SnsTopicTest extends AbstractHttpTest {
 	  public UserinfoTest user= new UserinfoTest();
   /**
    * run this testcase as a suite from the command line
@@ -20,10 +20,9 @@ public class PxCourseTest extends AbstractHttpTest {
    * @throws Exception 
    */
   public static void main(String args[]) throws Exception {
-    PxCourseTest o=new PxCourseTest();
+    SnsTopicTest o=new SnsTopicTest();
 //    o.testqueryByPage();
     o.testhotByPage();
-    o.testGet();
    
   }
   
@@ -32,7 +31,7 @@ public class PxCourseTest extends AbstractHttpTest {
    * @return
    */
   public static Test suite() {
-      return new TestSuite( PxCourseTest.class );
+      return new TestSuite( SnsTopicTest.class );
   }
   
 
@@ -47,7 +46,7 @@ public class PxCourseTest extends AbstractHttpTest {
   public void testhotByPage() throws Exception {
       WebConversation     conversation = new WebConversation();
       //GetMethodWebRequest
-      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/pxCourse/hotByPage.json" );
+      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/snsTopic/hotByPage.json" );
       request.setParameter("JSESSIONID",  user.getLoginSessionid());
       request.setParameter("pageNo",  "1");
 //      request.setParameter("map_point",  "-1.0%2C-1.0");
@@ -58,32 +57,4 @@ public class PxCourseTest extends AbstractHttpTest {
         assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
   }
   
-  public void testqueryByPage() throws Exception {
-      WebConversation     conversation = new WebConversation();
-      //GetMethodWebRequest
-      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/pxCourse/queryByPage.json" );
-      request.setParameter("JSESSIONID",  user.getLoginSessionid());
-//      request.setParameter("map_point",  "-1.0%2C-1.0");
-//      request.setParameter("map_point",  "103.985898%2C30.603341");
-      request.setParameter("sort",  "distance");
-        WebResponse response = tryGetResponse(conversation, request );
-        HttpUtils.println(conversation, request, response);
-        assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
-  }
-  
-
-  /**
-   * Verifies that submitting the login form without entering a name results in a page
-   * containing the text "Login failed"
-   **/
-  public void testGet() throws Exception {
-      WebConversation     conversation = new WebConversation();
-      //GetMethodWebRequest
-      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/pxCourse/2ef50331-dbe6-4279-9c82-f51d87d2a8bc.json"+user.addParameter_JSESSIONID() );
-//      request.setParameter("JSESSIONID",  user.getLoginSessionid());
-//      request.setParameter("mappoint",  "1,1");
-        WebResponse response = tryGetResponse(conversation, request );
-        HttpUtils.println(conversation, request, response);
-        assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
-  }
 }

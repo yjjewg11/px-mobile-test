@@ -9,6 +9,10 @@ import com.meterware.httpunit.WebResponse;
 
 public class AbstractHttpTest extends TestCase{
   
+	
+	public void setCookieBySessionid(WebRequest request,String sessionid ){
+		   request.setHeaderField("Cookie", "JSESSIONID="+sessionid);
+	}
   public WebResponse tryGetResponse(WebConversation conversation,WebRequest request) throws Exception {
     WebResponse response=null;
     try {

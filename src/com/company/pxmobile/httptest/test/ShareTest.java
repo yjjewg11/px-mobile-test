@@ -34,7 +34,9 @@ public class ShareTest extends AbstractHttpTest {
 		// junit.textui.TestRunner.run( suite() );
 		
 		ShareTest o = new ShareTest();
-		o.testgetPxbenefitJSON();
+		o.getHtmlTitle();
+//		o.testpxbenefitList();
+//		o.testgetPxbenefitJSON();
 		//o.testshare_getEmotSuccess();
 		//o.testarticleList();
 		//o.testgetArticleJSON();
@@ -111,6 +113,30 @@ public class ShareTest extends AbstractHttpTest {
 
 	}
 	
+	public void testshare_getCourseType() throws Exception {
+		WebConversation conversation = new WebConversation();
+		// GetMethodWebRequest
+		WebRequest request = new GetMethodWebRequest(TestConstants.host
+				+ "rest/share/getCourseType.json"+user.addParameter_JSESSIONID());
+
+		WebResponse response = tryGetResponse(conversation, request);
+
+		HttpUtils.println(conversation, request, response);
+		assertTrue("机构列表-成功", response.getText().indexOf("success") != -1);
+
+	}
+	public void getHtmlTitle() throws Exception {
+		WebConversation conversation = new WebConversation();
+		// GetMethodWebRequest
+		WebRequest request = new GetMethodWebRequest(TestConstants.host
+				+ "rest/share/getHtmlTitle.json");
+		request.setParameter("url", "https://community.ibeiliao.com/share/post/000I0001/0000CVWd000I0001");
+		WebResponse response = tryGetResponse(conversation, request);
+
+		HttpUtils.println(conversation, request, response);
+		assertTrue("机构列表-成功", response.getText().indexOf("success") != -1);
+
+	}
 	
 
 }

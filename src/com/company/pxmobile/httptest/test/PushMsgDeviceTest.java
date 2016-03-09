@@ -50,6 +50,7 @@ public class PushMsgDeviceTest  extends AbstractHttpTest {
 		  PushMsgDeviceJsonform form = new PushMsgDeviceJsonform();
 			form.setDevice_id("123");
 			form.setDevice_type("ios");
+			form.setStatus(2);
 			String json = JSONUtils.getJsonString(form);
 			HttpUtils.printjson(json);
 			ByteArrayInputStream input = new ByteArrayInputStream(

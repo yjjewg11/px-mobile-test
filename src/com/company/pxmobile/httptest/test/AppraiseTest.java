@@ -30,9 +30,9 @@ public class AppraiseTest extends AbstractHttpTest {
   public static void main(String args[]) throws Exception {
       //junit.textui.TestRunner.run( suite() );
     AppraiseTest o=new AppraiseTest();
-   // o.testSaveSuccess();
+    o.testqueryMyByPage();
     o.testappraise();
-   // o.testSaveSuccess();
+    o.testSaveSuccess();
     //o.testgetUserInfoSuccess();
     //o.testLoginFailed();
    
@@ -44,6 +44,26 @@ public class AppraiseTest extends AbstractHttpTest {
    */
   public static Test suite() {
       return new TestSuite( AppraiseTest.class );
+  }
+
+  /**
+   * Verifies that submitting the login form without entering a name results in a page
+   * containing the text "Login failed"
+   **/
+  public void testqueryMyByPage() throws Exception {
+      WebConversation     conversation = new WebConversation();
+      //GetMethodWebRequest
+      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/appraise/queryMyByPage.json" );
+      request.setParameter("JSESSIONID",  user.getLoginSessionid());
+      request.setParameter("ext_uuid",  "c7c6be16-b652-4323-94a9-ad31da56d509");
+        WebResponse response = tryGetResponse(conversation, request );
+//      WebForm loginForm = response.getForms()[0];
+//      request = loginForm.getRequest();
+//      response = conversation.getResponse( request );
+        HttpUtils.println(conversation, request, response);
+        assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
+//
+//      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
   }
   
 

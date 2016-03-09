@@ -32,8 +32,9 @@ public class StudentTest extends AbstractHttpTest {
 		StudentTest o = new StudentTest();
 		// o.testRegSuccess();
 		//o.testMyListSuccess();
-        o.testSaveSuccess();
-		//o.testAddSuccess();
+      //  o.testSaveSuccess();
+		o.testAddSuccess();
+       // o.testSaveSuccess();
 	}
 
 	/**
@@ -99,6 +100,38 @@ public class StudentTest extends AbstractHttpTest {
 				json.getBytes(SystemConstants.Charset));
 		PostMethodWebRequest request = new PostMethodWebRequest(
 				TestConstants.host + "rest/student/save.json"+user.addParameter_JSESSIONID(), input,
+				TestConstants.contentType);
+
+		WebResponse response = tryGetResponse(conversation, request);
+
+		HttpUtils.println(conversation, request, response);
+		assertTrue("增加-成功", response.getText().indexOf("success") != -1);
+
+	}
+	
+
+	/**
+	 * Verifies that submitting the login form without entering a name results
+	 * in a page containing the text "Login failed"
+	 **/
+	public void testAddSuccess() throws Exception {
+		WebConversation conversation = new WebConversation();
+		// GetMethodWebRequest
+
+		StudentJsonform s = new StudentJsonform();
+
+		s.setName("成都市青羊区1");
+		s.setClassuuid("e1591749-3551-410d-91e3-b6f3151fdeae");
+		//s.setUuid("6b7e972c-432d-4ad7-bba2-abda8863c9a1");
+		s.setNickname("小甜甜");
+		s.setMa_tel("13628037994");
+		s.setHeadimg("http://120.25.248.31/px-rest/rest/uploadFile/getImgFile.json?uuid=d8a08ca3-b823");
+		String json = JSONUtils.getJsonString(s);
+		HttpUtils.printjson(json);
+		ByteArrayInputStream input = new ByteArrayInputStream(
+				json.getBytes(SystemConstants.Charset));
+		PostMethodWebRequest request = new PostMethodWebRequest(
+				TestConstants.host + "rest/student/add.json"+user.addParameter_JSESSIONID(), input,
 				TestConstants.contentType);
 
 		WebResponse response = tryGetResponse(conversation, request);

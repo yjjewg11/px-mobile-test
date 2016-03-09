@@ -6,6 +6,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import com.company.news.SystemConstants;
+import com.company.news.jsonform.BaseReplyJsonform;
 import com.company.news.jsonform.ClassNewsReplyJsonform;
 import com.company.pxmobile.httptest.AbstractHttpTest;
 import com.company.pxmobile.httptest.HttpUtils;
@@ -17,7 +18,10 @@ import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
-public class ClassNewsReplyTest extends AbstractHttpTest {
+public class BaseReplyTest extends AbstractHttpTest {
+	static public Integer type=22;
+	static public String rel_uuid="rel_uuid";
+	
 	  public UserinfoTest user= new UserinfoTest();
 	/**
 	 * run this testcase as a suite from the command line
@@ -29,10 +33,10 @@ public class ClassNewsReplyTest extends AbstractHttpTest {
 	public static void main(String args[]) throws Exception {
 		// junit.textui.TestRunner.run( suite() );
 		
-		ClassNewsReplyTest o = new ClassNewsReplyTest();
+		BaseReplyTest o = new BaseReplyTest();
 		 //o.testDeleteSuccess();
+		o.testAddSuccess();
 		o.testListSuccess();
-        // o.testAddSuccess();
 		//o.testUpdateSuccess();
 	}
 
@@ -42,7 +46,7 @@ public class ClassNewsReplyTest extends AbstractHttpTest {
 	 * @return
 	 */
 	public static Test suite() {
-		return new TestSuite(ClassNewsReplyTest.class);
+		return new TestSuite(BaseReplyTest.class);
 	}
 
 	/**
@@ -53,14 +57,11 @@ public class ClassNewsReplyTest extends AbstractHttpTest {
 		WebConversation conversation = new WebConversation();
 		// GetMethodWebRequest
 
-		ClassNewsReplyJsonform form = new ClassNewsReplyJsonform();
-		form.setNewsuuid("8076abe8-c5b7-430d-ab6e-dbe441dbf64e");
-		form.setContent("第一条回复额");
-		form.setType(0);
-
-		form.setNewsuuid("422dbd87-5da7-45e4-a911-00834958788f");
-		form.setContent("第一条回复额");
-		form.setType(99);
+		BaseReplyJsonform form = new BaseReplyJsonform();
+		//form.setNewsuuid("8076abe8-c5b7-430d-ab6e-dbe441dbf64e");
+		form.setContent("第一条回复额111");
+		form.setRel_uuid(rel_uuid);
+		form.setType(type);
 
 
 		String json = JSONUtils.getJsonString(form);
@@ -68,7 +69,7 @@ public class ClassNewsReplyTest extends AbstractHttpTest {
 		ByteArrayInputStream input = new ByteArrayInputStream(
 				json.getBytes(SystemConstants.Charset));
 		PostMethodWebRequest request = new PostMethodWebRequest(
-				TestConstants.host + "rest/reply/save.json"+user.addParameter_JSESSIONID(), input,
+				TestConstants.host + "rest/baseReply/save.json"+user.addParameter_JSESSIONID(), input,
 				TestConstants.contentType);
 
 		WebResponse response = tryGetResponse(conversation, request);
@@ -87,18 +88,18 @@ public class ClassNewsReplyTest extends AbstractHttpTest {
 		WebConversation conversation = new WebConversation();
 		// GetMethodWebRequest
 
-		ClassNewsReplyJsonform form = new ClassNewsReplyJsonform();
+		BaseReplyJsonform form = new BaseReplyJsonform();
 		//form.setNewsuuid("8076abe8-c5b7-430d-ab6e-dbe441dbf64e");
 		form.setContent("第一条回复额111");
-		form.setUuid("d2045185-4ef1-49bb-ba53-891ffeb55c90");
-
+		form.setRel_uuid("123");
+		form.setType(type);
 
 		String json = JSONUtils.getJsonString(form);
 		HttpUtils.printjson(json);
 		ByteArrayInputStream input = new ByteArrayInputStream(
 				json.getBytes(SystemConstants.Charset));
 		PostMethodWebRequest request = new PostMethodWebRequest(
-				TestConstants.host + "rest/reply/save.json"+user.addParameter_JSESSIONID(), input,
+				TestConstants.host + "rest/baseReply/save.json"+user.addParameter_JSESSIONID(), input,
 				TestConstants.contentType);
 
 		WebResponse response = tryGetResponse(conversation, request);
@@ -111,8 +112,8 @@ public class ClassNewsReplyTest extends AbstractHttpTest {
 		WebConversation conversation = new WebConversation();
 		// GetMethodWebRequest
 		WebRequest request = new GetMethodWebRequest(TestConstants.host
-				+ "rest/reply/getReplyByNewsuuid.json"+user.addParameter_JSESSIONID()
-				+"&pageNo=1&pageSize=10&newsuuid=11");
+				+ "rest/baseReply/queryByRel_uuid.json"+user.addParameter_JSESSIONID()
+				+"&pageNo=1&pageSize=10&rel_uuid="+rel_uuid+"&type="+type);
 
 		WebResponse response = tryGetResponse(conversation, request);
 

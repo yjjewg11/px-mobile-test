@@ -22,6 +22,7 @@ public class ClassNewsTest extends AbstractHttpTest {
   public static void main(String args[]) throws Exception {
       //junit.textui.TestRunner.run( suite() );
     ClassNewsTest o=new ClassNewsTest();
+  //  o.testqueryPxClassNewsBy();
     o.testgetClassNewsByMy();
     //o.testgetUserInfoSuccess();
     //o.testLoginFailed();
@@ -35,7 +36,26 @@ public class ClassNewsTest extends AbstractHttpTest {
   public static Test suite() {
       return new TestSuite( ClassNewsTest.class );
   }
-  
+
+  /**
+   * Verifies that submitting the login form without entering a name results in a page
+   * containing the text "Login failed"
+   **/
+  public void testqueryPxClassNewsBy() throws Exception {
+      WebConversation     conversation = new WebConversation();
+      //GetMethodWebRequest
+      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/classnews/queryPxClassNewsBy.json" );
+      request.setParameter("JSESSIONID",  user.getLoginSessionid());
+      request.setParameter("groupuuid",  "abc");
+        WebResponse response = tryGetResponse(conversation, request );
+//      WebForm loginForm = response.getForms()[0];
+//      request = loginForm.getRequest();
+//      response = conversation.getResponse( request );
+        HttpUtils.println(conversation, request, response);
+        assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
+//
+//      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
+  }
 
   /**
    * Verifies that submitting the login form without entering a name results in a page

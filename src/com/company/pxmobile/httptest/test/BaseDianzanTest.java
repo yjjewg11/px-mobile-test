@@ -6,7 +6,8 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import com.company.news.SystemConstants;
-import com.company.news.jsonform.ClassNewsReplyJsonform;
+import com.company.news.jsonform.BaseDianzanJsonform;
+import com.company.news.jsonform.BaseReplyJsonform;
 import com.company.pxmobile.httptest.AbstractHttpTest;
 import com.company.pxmobile.httptest.HttpUtils;
 import com.company.pxmobile.httptest.JSONUtils;
@@ -17,7 +18,10 @@ import com.meterware.httpunit.WebConversation;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
-public class ClassNewsReplyTest extends AbstractHttpTest {
+public class BaseDianzanTest extends AbstractHttpTest {
+	static public Integer type=21;
+	static public String rel_uuid=TestConstants.FPPhotoItem_uuid;
+	
 	  public UserinfoTest user= new UserinfoTest();
 	/**
 	 * run this testcase as a suite from the command line
@@ -29,10 +33,11 @@ public class ClassNewsReplyTest extends AbstractHttpTest {
 	public static void main(String args[]) throws Exception {
 		// junit.textui.TestRunner.run( suite() );
 		
-		ClassNewsReplyTest o = new ClassNewsReplyTest();
-		 //o.testDeleteSuccess();
-		o.testListSuccess();
-        // o.testAddSuccess();
+		BaseDianzanTest o = new BaseDianzanTest();
+//		 o.testDeleteSuccess();
+		o.testAddSuccess();
+		o.testDeleteSuccess();
+		//o.testListSuccess();
 		//o.testUpdateSuccess();
 	}
 
@@ -42,7 +47,7 @@ public class ClassNewsReplyTest extends AbstractHttpTest {
 	 * @return
 	 */
 	public static Test suite() {
-		return new TestSuite(ClassNewsReplyTest.class);
+		return new TestSuite(BaseDianzanTest.class);
 	}
 
 	/**
@@ -53,14 +58,10 @@ public class ClassNewsReplyTest extends AbstractHttpTest {
 		WebConversation conversation = new WebConversation();
 		// GetMethodWebRequest
 
-		ClassNewsReplyJsonform form = new ClassNewsReplyJsonform();
-		form.setNewsuuid("8076abe8-c5b7-430d-ab6e-dbe441dbf64e");
-		form.setContent("第一条回复额");
-		form.setType(0);
-
-		form.setNewsuuid("422dbd87-5da7-45e4-a911-00834958788f");
-		form.setContent("第一条回复额");
-		form.setType(99);
+		BaseDianzanJsonform form = new BaseDianzanJsonform();
+		//form.setNewsuuid("8076abe8-c5b7-430d-ab6e-dbe441dbf64e");
+		form.setRel_uuid(rel_uuid);
+		form.setType(type);
 
 
 		String json = JSONUtils.getJsonString(form);
@@ -68,9 +69,28 @@ public class ClassNewsReplyTest extends AbstractHttpTest {
 		ByteArrayInputStream input = new ByteArrayInputStream(
 				json.getBytes(SystemConstants.Charset));
 		PostMethodWebRequest request = new PostMethodWebRequest(
-				TestConstants.host + "rest/reply/save.json"+user.addParameter_JSESSIONID(), input,
+				TestConstants.host + "rest/baseDianzan/save.json"+user.addParameter_JSESSIONID(), input,
 				TestConstants.contentType);
 
+		WebResponse response = tryGetResponse(conversation, request);
+
+		HttpUtils.println(conversation, request, response);
+		assertTrue("成功", response.getText().indexOf("success") != -1);
+
+	}
+	
+	
+	public void testDeleteSuccess() throws Exception {
+		WebConversation conversation = new WebConversation();
+		// GetMethodWebRequest
+
+		PostMethodWebRequest request = new PostMethodWebRequest(
+				TestConstants.host + "rest/baseDianzan/delete.json");
+
+		request.setParameter("JSESSIONID", user.getLoginSessionid());
+		request.setParameter("rel_uuid", rel_uuid);
+		request.setParameter("type",type+"");
+		
 		WebResponse response = tryGetResponse(conversation, request);
 
 		HttpUtils.println(conversation, request, response);
@@ -87,18 +107,18 @@ public class ClassNewsReplyTest extends AbstractHttpTest {
 		WebConversation conversation = new WebConversation();
 		// GetMethodWebRequest
 
-		ClassNewsReplyJsonform form = new ClassNewsReplyJsonform();
+		BaseReplyJsonform form = new BaseReplyJsonform();
 		//form.setNewsuuid("8076abe8-c5b7-430d-ab6e-dbe441dbf64e");
 		form.setContent("第一条回复额111");
-		form.setUuid("d2045185-4ef1-49bb-ba53-891ffeb55c90");
-
+		form.setRel_uuid("123");
+		form.setType(type);
 
 		String json = JSONUtils.getJsonString(form);
 		HttpUtils.printjson(json);
 		ByteArrayInputStream input = new ByteArrayInputStream(
 				json.getBytes(SystemConstants.Charset));
 		PostMethodWebRequest request = new PostMethodWebRequest(
-				TestConstants.host + "rest/reply/save.json"+user.addParameter_JSESSIONID(), input,
+				TestConstants.host + "rest/baseDianzan/save.json"+user.addParameter_JSESSIONID(), input,
 				TestConstants.contentType);
 
 		WebResponse response = tryGetResponse(conversation, request);
@@ -111,8 +131,8 @@ public class ClassNewsReplyTest extends AbstractHttpTest {
 		WebConversation conversation = new WebConversation();
 		// GetMethodWebRequest
 		WebRequest request = new GetMethodWebRequest(TestConstants.host
-				+ "rest/reply/getReplyByNewsuuid.json"+user.addParameter_JSESSIONID()
-				+"&pageNo=1&pageSize=10&newsuuid=11");
+				+ "rest/baseDianzan/queryByRel_uuid.json"+user.addParameter_JSESSIONID()
+				+"&pageNo=1&pageSize=10&rel_uuid="+rel_uuid+"&type="+type);
 
 		WebResponse response = tryGetResponse(conversation, request);
 
@@ -124,25 +144,7 @@ public class ClassNewsReplyTest extends AbstractHttpTest {
 	
 
 	
-	
-	/**
-	 * Verifies that submitting the login form without entering a name results
-	 * in a page containing the text "Login failed"
-	 **/
-	public void testDeleteSuccess() throws Exception {
-		WebConversation conversation = new WebConversation();
-		// GetMethodWebRequest
 
-		PostMethodWebRequest request = new PostMethodWebRequest(
-				TestConstants.host + "rest/reply/delete.json"+user.addParameter_JSESSIONID()+
-				"&uuid=d7a0140f-2547-45f1-97b0-1ea7eb7a9045");
-
-		WebResponse response = tryGetResponse(conversation, request);
-
-		HttpUtils.println(conversation, request, response);
-		assertTrue("删除-成功", response.getText().indexOf("success") != -1);
-
-	}
 	
 
 }

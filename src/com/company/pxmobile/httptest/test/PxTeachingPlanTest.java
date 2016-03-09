@@ -31,7 +31,7 @@ public class PxTeachingPlanTest extends AbstractHttpTest {
 		
 		PxTeachingPlanTest o = new PxTeachingPlanTest();
 		 o.nextListSuccess();
-	o.listAllByclassuuid();
+//	o.listAllByclassuuid();
 //o.testListSuccess();
 	//	o.testGetSuccess();
 	}
