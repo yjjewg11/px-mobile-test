@@ -33,7 +33,7 @@ public class FPMoiveTest extends AbstractHttpTest {
   public static void main(String args[]) throws Exception {
       //junit.textui.TestRunner.run( suite() );
     FPMoiveTest o=new FPMoiveTest();
-    o.testdelete();
+    o.testGet();
 //    o.testSaveSuccess();
 //    o.testExtra();
 //   o.queryOfIncrement();
@@ -84,10 +84,11 @@ public class FPMoiveTest extends AbstractHttpTest {
 			// GetMethodWebRequest
 
 			FPMovieJsonform s = new FPMovieJsonform();
-			s.setUuid("a21c1650-154a-4b58-83ae-6b5e9d31d0b9");
-			s.setPhoto_uuids("98513a24-d9e3-44a7-97d2-83489419a0fe,9c418b58-c2e2-473b-a3bf-7919fab8a47b");
+			s.setUuid("f5027a6f-fe18-4954-ba47-a48c3ef1c1ce");
+			s.setPhoto_uuids("d15de0ed-efbf-4f4b-84a3-5cf528b4bd3e,a0db525d-111f-4c72-b828-6ad938a4cca8,60f40c72-9d52-43ca-ac5d-67fca770aadf,80bb58f1-84e8-4ebe-9eb6-0595b50300b7");
 			s.setTitle("1");
-			
+			s.setMp3("http://img.wenjienet.com/mp3/生日快乐.mp3");
+			s.setTemplate_key("garden");
 			String json = JSONUtils.getJsonString(s);
 			HttpUtils.printjson(json);
 			ByteArrayInputStream input = new ByteArrayInputStream(
@@ -107,7 +108,7 @@ public class FPMoiveTest extends AbstractHttpTest {
 	      //GetMethodWebRequest
 	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/fPMovie/get.json" );
 	      this.setCookieBySessionid(request, user.getLoginSessionid());
-	      request.setParameter("uuid", "a21c1650-154a-4b58-83ae-6b5e9d31d0b9");
+	      request.setParameter("uuid",  "b9d4434a-0321-41ae-82c6-328a22906af9");
 		     
 	      WebResponse response = tryGetResponse(conversation, request );
 //	      WebForm loginForm = response.getForms()[0];

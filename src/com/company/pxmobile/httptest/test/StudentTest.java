@@ -30,10 +30,10 @@ public class StudentTest extends AbstractHttpTest {
 		// junit.textui.TestRunner.run( suite() );
 		
 		StudentTest o = new StudentTest();
-		// o.testRegSuccess();
+		 o.testAddSuccess();
 		//o.testMyListSuccess();
       //  o.testSaveSuccess();
-		o.testAddSuccess();
+//		o.getClassHeaderTeacher();
        // o.testSaveSuccess();
 	}
 
@@ -48,6 +48,22 @@ public class StudentTest extends AbstractHttpTest {
 
 
 
+	
+	
+	public void getClassHeaderTeacher() throws Exception {
+		WebConversation conversation = new WebConversation();
+		// GetMethodWebRequest
+		WebRequest request = new GetMethodWebRequest(TestConstants.host
+				+ "rest/student/getClassHeaderTeacher.json"+user.addParameter_JSESSIONID()
+				+"&classuuid=e1591749-3551-410d-91e3-b6f3151fdeae");
+
+		WebResponse response = tryGetResponse(conversation, request);
+
+		HttpUtils.println(conversation, request, response);
+		assertTrue("机构-成功", response.getText().indexOf("success") != -1);
+
+	}
+	
 
 	
 	

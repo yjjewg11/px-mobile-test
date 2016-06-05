@@ -28,9 +28,9 @@ public class FPFamilyPhotoCollectionTest extends AbstractHttpTest {
   public static void main(String args[]) throws Exception {
       //junit.textui.TestRunner.run( suite() );
     FPFamilyPhotoCollectionTest o=new FPFamilyPhotoCollectionTest();
-//    o.testGet();
-    o.testSaveSuccess();
-//   o.testQueryMy();
+    o.testGet();
+//    o.testSaveSuccess();
+   o.testQueryMy();
    
   }
   

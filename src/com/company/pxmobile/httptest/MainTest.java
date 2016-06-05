@@ -18,7 +18,7 @@ public class MainTest {
 	   */
 	  public static void main(String[] args) throws Exception {
 	    {
-	    	
+	    
 	    	int c=4000;
 	    	c=1;
 	    	for(int i=0;i<c;i++){

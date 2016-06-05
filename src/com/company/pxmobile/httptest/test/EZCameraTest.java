@@ -18,7 +18,7 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
 
-public class FPMovieCollectionTest extends AbstractHttpTest {
+public class EZCameraTest extends AbstractHttpTest {
 	  public UserinfoTest user= new UserinfoTest();
   /**
    * run this testcase as a suite from the command line
@@ -27,10 +27,10 @@ public class FPMovieCollectionTest extends AbstractHttpTest {
    */
   public static void main(String args[]) throws Exception {
       //junit.textui.TestRunner.run( suite() );
-    FPMovieCollectionTest o=new FPMovieCollectionTest();
+    EZCameraTest o=new EZCameraTest();
   //  o.testSaveSuccess();
-    o.testQuery();
-   
+    o.testgetAccessToken();
+   o.testgetCameraList();
   }
   
   /**
@@ -38,47 +38,20 @@ public class FPMovieCollectionTest extends AbstractHttpTest {
    * @return
    */
   public static Test suite() {
-      return new TestSuite( FPMovieCollectionTest.class );
+      return new TestSuite( EZCameraTest.class );
   }
   
 
 
-  
-	/**
-	 * Verifies that submitting the login form without entering a name results
-	 * in a page containing the text "Login failed"
-	 **/
-	public void testSaveSuccess() throws Exception {
-		WebConversation conversation = new WebConversation();
-		// GetMethodWebRequest
-
-		FPFamilyPhotoCollectionJsonform s = new FPFamilyPhotoCollectionJsonform();
-
-		s.setTitle("7996家庭相册");
-		s.setUuid("f5027a6f-fe18-4954-ba47-a48c3ef1c1ce");
-		String json = JSONUtils.getJsonString(s);
-		HttpUtils.printjson(json);
-		ByteArrayInputStream input = new ByteArrayInputStream(
-				json.getBytes(SystemConstants.Charset));
-		PostMethodWebRequest request = new PostMethodWebRequest(
-				TestConstants.host + "rest/fpFamilyPhotoCollection/save.json"+user.addParameter_JSESSIONID(), input,
-				TestConstants.contentType);
-
-		WebResponse response = tryGetResponse(conversation, request);
-
-		HttpUtils.println(conversation, request, response);
-		assertTrue("增加-成功", response.getText().indexOf("success") != -1);
-
-	}
 	
 	  /**
 	   * Verifies that submitting the login form without entering a name results in a page
 	   * containing the text "Login failed"
 	   **/
-	  public void testQueryMy() throws Exception {
+	  public void testgetCameraList() throws Exception {
 	      WebConversation     conversation = new WebConversation();
 	      //GetMethodWebRequest
-	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/fPMovie/queryMy.json" );
+	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/eZCamera/getCameraList.json" );
 	      request.setParameter("JSESSIONID",  user.getLoginSessionid());
 	        WebResponse response = tryGetResponse(conversation, request );
 //	      WebForm loginForm = response.getForms()[0];
@@ -90,15 +63,10 @@ public class FPMovieCollectionTest extends AbstractHttpTest {
 //	      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
 	  }
 	  
-	  
-	  /**
-	   * Verifies that submitting the login form without entering a name results in a page
-	   * containing the text "Login failed"
-	   **/
-	  public void testQuery() throws Exception {
+	  public void testgetAccessToken() throws Exception {
 	      WebConversation     conversation = new WebConversation();
 	      //GetMethodWebRequest
-	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/fPMovie/query.json" );
+	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/eZCamera/getAccessToken.json" );
 	      request.setParameter("JSESSIONID",  user.getLoginSessionid());
 	        WebResponse response = tryGetResponse(conversation, request );
 //	      WebForm loginForm = response.getForms()[0];
@@ -109,4 +77,5 @@ public class FPMovieCollectionTest extends AbstractHttpTest {
 	//
 //	      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
 	  }
+	  
 }

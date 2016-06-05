@@ -1,15 +1,17 @@
 package com.company.pxmobile.httptest;
 
 public class TestConstants {
-	 static public String tel="13628037996";
-	// public static String host="http://jz.wenjienet.com/px-mobile/";
+	 static public String tel="13628037991";
+	 static public String password="123456";
+//	 static public String password="666666";
+	 public static String host="http://jz.wenjienet.com/px-mobile/";
 
 //public static String host="http://120.25.248.31/px-mobile/";
  // static public String tel="18780475970";
 //   public static String host="http://120.24.61.97/px-mobile/";
  
 	 
-	  public static String host="http://localhost:8080/px-mobile/";
+// public static String host="http://localhost:8080/px-mobile/";
   static public String FPPhotoItem_uuid="1";
   
 //public static String host="http://120.25.212.44/px-mobile/";//px3

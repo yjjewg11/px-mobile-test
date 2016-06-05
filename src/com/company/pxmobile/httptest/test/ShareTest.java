@@ -99,6 +99,32 @@ public class ShareTest extends AbstractHttpTest {
 		assertTrue("机构列表-成功", response.getText().indexOf("success") != -1);
 
 	}
+	
+	public void getAnnUrlJSON() throws Exception {
+		WebConversation conversation = new WebConversation();
+		// GetMethodWebRequest
+		WebRequest request = new GetMethodWebRequest(TestConstants.host
+				+ "rest/share/getAnnUrlJSON.json?uuid=225d1b35-4fc2-4db1-9a26-9dc7aabdc30c");
+
+		WebResponse response = tryGetResponse(conversation, request);
+
+		HttpUtils.println(conversation, request, response);
+		assertTrue("机构列表-成功", response.getText().indexOf("success") != -1);
+
+	}
+	
+	public void getArticleUrlJSON() throws Exception {
+		WebConversation conversation = new WebConversation();
+		// GetMethodWebRequest
+		WebRequest request = new GetMethodWebRequest(TestConstants.host
+				+ "rest/share/getArticleUrlJSON.json?uuid=225d1b35-4fc2-4db1-9a26-9dc7aabdc30c");
+
+		WebResponse response = tryGetResponse(conversation, request);
+
+		HttpUtils.println(conversation, request, response);
+		assertTrue("机构列表-成功", response.getText().indexOf("success") != -1);
+
+	}
 
 	public void testshare_getEmotSuccess() throws Exception {
 		WebConversation conversation = new WebConversation();

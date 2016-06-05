@@ -7,7 +7,7 @@ import junit.framework.TestSuite;
 
 import com.company.news.SystemConstants;
 import com.company.news.json.JSONUtils;
-import com.company.news.jsonform.FPFamilyMembersJsonform;
+import com.company.news.jsonform.FPFamilyPhotoCollectionJsonform;
 import com.company.pxmobile.httptest.AbstractHttpTest;
 import com.company.pxmobile.httptest.HttpUtils;
 import com.company.pxmobile.httptest.TestConstants;
@@ -18,7 +18,7 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
 
-public class FPFamilyMembersTest extends AbstractHttpTest {
+public class IMTaoBaoTest extends AbstractHttpTest {
 	  public UserinfoTest user= new UserinfoTest();
   /**
    * run this testcase as a suite from the command line
@@ -27,10 +27,9 @@ public class FPFamilyMembersTest extends AbstractHttpTest {
    */
   public static void main(String args[]) throws Exception {
       //junit.textui.TestRunner.run( suite() );
-    FPFamilyMembersTest o=new FPFamilyMembersTest();
-
-    o.testdelete();
-//   o.testQueryMy();
+    IMTaoBaoTest o=new IMTaoBaoTest();
+  //  o.testSaveSuccess();
+    o.testgetMyLoginUser();
    
   }
   
@@ -39,7 +38,7 @@ public class FPFamilyMembersTest extends AbstractHttpTest {
    * @return
    */
   public static Test suite() {
-      return new TestSuite( FPFamilyMembersTest.class );
+      return new TestSuite( IMTaoBaoTest.class );
   }
   
 
@@ -53,18 +52,16 @@ public class FPFamilyMembersTest extends AbstractHttpTest {
 		WebConversation conversation = new WebConversation();
 		// GetMethodWebRequest
 
-		FPFamilyMembersJsonform s = new FPFamilyMembersJsonform();
-		s.setUuid("111121121121");
-		s.setFamily_uuid("f7317682-70aa-4ce1-9ce3-34925c1617b3");
-		s.setFamily_name("1aa");
-		s.setTel("ffjskdghh");
-		
+		FPFamilyPhotoCollectionJsonform s = new FPFamilyPhotoCollectionJsonform();
+
+		s.setTitle("7996家庭相册");
+		s.setUuid("f5027a6f-fe18-4954-ba47-a48c3ef1c1ce");
 		String json = JSONUtils.getJsonString(s);
 		HttpUtils.printjson(json);
 		ByteArrayInputStream input = new ByteArrayInputStream(
 				json.getBytes(SystemConstants.Charset));
 		PostMethodWebRequest request = new PostMethodWebRequest(
-				TestConstants.host + "rest/fPFamilyMembers/save.json"+user.addParameter_JSESSIONID(), input,
+				TestConstants.host + "rest/fpFamilyPhotoCollection/save.json"+user.addParameter_JSESSIONID(), input,
 				TestConstants.contentType);
 
 		WebResponse response = tryGetResponse(conversation, request);
@@ -78,10 +75,10 @@ public class FPFamilyMembersTest extends AbstractHttpTest {
 	   * Verifies that submitting the login form without entering a name results in a page
 	   * containing the text "Login failed"
 	   **/
-	  public void testQueryMy() throws Exception {
+	  public void testgetMyLoginUser() throws Exception {
 	      WebConversation     conversation = new WebConversation();
 	      //GetMethodWebRequest
-	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/fpFamilyPhotoCollection/queryMy.json" );
+	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/im/getMyLoginUser.json" );
 	      request.setParameter("JSESSIONID",  user.getLoginSessionid());
 	        WebResponse response = tryGetResponse(conversation, request );
 //	      WebForm loginForm = response.getForms()[0];
@@ -92,17 +89,17 @@ public class FPFamilyMembersTest extends AbstractHttpTest {
 	//
 //	      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
 	  }
+	  
 	  
 	  /**
 	   * Verifies that submitting the login form without entering a name results in a page
 	   * containing the text "Login failed"
 	   **/
-	  public void testGet() throws Exception {
+	  public void testQuery() throws Exception {
 	      WebConversation     conversation = new WebConversation();
 	      //GetMethodWebRequest
-	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/fpFamilyPhotoCollection/get.json" );
+	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/fPMovie/query.json" );
 	      request.setParameter("JSESSIONID",  user.getLoginSessionid());
-	      request.setParameter("uuid",  "2be0f0bd-989b-4616-9bc3-66d6c5fe9a92");
 	        WebResponse response = tryGetResponse(conversation, request );
 //	      WebForm loginForm = response.getForms()[0];
 //	      request = loginForm.getRequest();
@@ -111,32 +108,5 @@ public class FPFamilyMembersTest extends AbstractHttpTest {
 	        assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
 	//
 //	      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
-	  }
-	  
-	  public void testGet2() throws Exception {
-	      WebConversation     conversation = new WebConversation();
-	      //GetMethodWebRequest
-	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/fpFamilyPhotoCollection/2be0f0bd-989b-4616-9bc3-66d6c5fe9a92.json" );
-	      request.setParameter("JSESSIONID",  user.getLoginSessionid());
-	      request.setParameter("uuid",  "2be0f0bd-989b-4616-9bc3-66d6c5fe9a92");
-	        WebResponse response = tryGetResponse(conversation, request );
-//	      WebForm loginForm = response.getForms()[0];
-//	      request = loginForm.getRequest();
-//	      response = conversation.getResponse( request );
-	        HttpUtils.println(conversation, request, response);
-	        assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
-	//
-//	      assertTrue( "Login not rejected", response.getText().indexOf( "Login failed" ) != -1 );
-	  }
-	  
-	  public void testdelete() throws Exception {
-	      WebConversation     conversation = new WebConversation();
-	      //GetMethodWebRequest
-	      WebRequest  request = new PostMethodWebRequest( TestConstants.host+"rest/fPFamilyMembers/delete.json" );
-	      request.setParameter("JSESSIONID",  user.getLoginSessionid());
-	      request.setParameter("uuid",  "f3dee580-9fa1-42b4-8ef4-83c674f56c96");
-	        WebResponse response = tryGetResponse(conversation, request );
-	        HttpUtils.println(conversation, request, response);
-	        assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
 	  }
 }

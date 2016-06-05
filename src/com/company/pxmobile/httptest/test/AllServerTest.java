@@ -1,6 +1,8 @@
 package com.company.pxmobile.httptest.test;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -21,7 +23,7 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
 
-public class UserinfoTest extends AbstractHttpTest {
+public class AllServerTest extends AbstractHttpTest {
 
 	  public String cookiesessionid="CD660875E188A788D6022F70ABA97701";
 	
@@ -42,15 +44,25 @@ public class UserinfoTest extends AbstractHttpTest {
    */
   public static void main(String args[]) throws Exception {
       //junit.textui.TestRunner.run( suite() );
-	 
-    UserinfoTest o=new UserinfoTest();
-    o.testLoginSuccess();
-//    o.testgetUserInfoSuccess();
-    o.testUpdateSuccess();
-    o.testgetUserInfoSuccess();
-    //    o.testgetUserInfoByCookieSessionidSuccess();
-//    //o.getNewMsgNumber();
-//    o.testLoginSuccess();
+    AllServerTest o=new AllServerTest();
+//    o.testlogoutSuccess();
+  //  o.testgetUserInfoByCookieSessionidSuccess();
+    //o.getNewMsgNumber();
+    
+    List<String> list=new ArrayList();
+    list.add("http://120.25.248.31/px-mobile/");
+    list.add("http://120.24.61.97/px-mobile/");
+    list.add("http://120.25.212.44/px-mobile/");
+    
+    for(String s : list){
+    	 TestConstants.host=s;
+    	 TestConstants.tel="13628037991";
+    	 TestConstants.password="123456";
+    	    o.testLoginSuccess();
+    }
+    
+
+
  //  o.testgetUserInfoSuccess();
 //    //o.testLoginFailed();
 //    //o.testUpdateSuccess();
@@ -58,33 +70,9 @@ public class UserinfoTest extends AbstractHttpTest {
 //    o.testgetTeacherPhoneBook();
 //    o.testUpdatePasswordSuccess();
     //o.testupdatepasswordBySmsSuccess();
+    
+    
    
-  }
-  /**
-   * Verifies that submitting the login form without entering a name results in a page
-   * containing the text "Login failed"
-   **/
-  public void testUpdateSuccess() throws Exception {
-      WebConversation     conversation = new WebConversation();
-      //GetMethodWebRequest
-      UserRegJsonform form =new UserRegJsonform();
-      form.setName("名字错了");
-      form.setGroup_uuid("testuuid");
-      form.setTel("13980223880");
-      form.setSex(1);
-      form.setOffice("班主任");
-      form.setEmail("123@qq.com");
-      form.setImg("http://11423?uuid=1114444");
-      String json=JSONUtils.getJsonString(form);
-      HttpUtils.printjson(json);
-      ByteArrayInputStream input=new ByteArrayInputStream(json.getBytes(SystemConstants.Charset));
-      PostMethodWebRequest  request = new PostMethodWebRequest( TestConstants.host+"rest/userinfo/update.json"+this.addParameter_JSESSIONID(),input,TestConstants.contentType );
-
-      WebResponse response = tryGetResponse(conversation, request );
-       
-      HttpUtils.println(conversation, request, response);
-      assertTrue( "新增-成功", response.getText().indexOf( "success" ) != -1 );
-      
   }
   
   /**
@@ -92,7 +80,7 @@ public class UserinfoTest extends AbstractHttpTest {
    * @return
    */
   public static Test suite() {
-      return new TestSuite( UserinfoTest.class );
+      return new TestSuite( AllServerTest.class );
   }
 
 	public void testgetTeacherPhoneBook() throws Exception {
@@ -158,12 +146,8 @@ public class UserinfoTest extends AbstractHttpTest {
   public void testLoginSuccess() throws Exception {
       WebConversation     conversation = new WebConversation();
       //GetMethodWebRequest
-      
-      String pwdMd5=  MD5Until.getMD5String(TestConstants.password);
-//      pwdMd5= "04eea556dbd4591e9efa4d3df8fb1ac2";
-//      tel="13880806759";
-      String url= TestConstants.host+"rest/userinfo/login.json?loginname="+tel+"&password="+pwdMd5;
-//      url+="&JSESSIONID=35FD5D67A394BFEB5E3EB845E42E88C9";
+      String url= TestConstants.host+"rest/userinfo/login.json?loginname="+tel+"&password="+MD5Until.getMD5String(TestConstants.password);
+      url+="&JSESSIONID=35FD5D67A394BFEB5E3EB845E42E88C9";
       WebRequest  request = new PostMethodWebRequest(url);
     //  +"&md5=111018fb8a7606b29c55ce86d89406504"  
       WebResponse response = tryGetResponse(conversation, request );
@@ -306,7 +290,7 @@ public class UserinfoTest extends AbstractHttpTest {
 	}
 	
 	
-	public void testUpdate111Success() throws Exception {
+	public void testUpdateSuccess() throws Exception {
 		WebConversation conversation = new WebConversation();
 		// GetMethodWebRequest
 
@@ -366,19 +350,7 @@ public class UserinfoTest extends AbstractHttpTest {
 	      assertTrue( "成功", response.getText().indexOf( "status" ) != -1 );
 	      
 	  }
-	  public void getParentBaseInfo() throws Exception {
-	      WebConversation     conversation = new WebConversation();
-	      //GetMethodWebRequest
-	      WebRequest  request = new GetMethodWebRequest( TestConstants.host+"rest/userinfo/getParentBaseInfo.json" );
-	      request.setParameter("JSESSIONID",  this.getLoginSessionid());
-	      request.setParameter("pageNo",  "1");
-//	      request.setParameter("map_point",  "-1.0%2C-1.0");
-//	      request.setParameter("map_point",  "103.985898%2C30.603341");
-	      request.setParameter("sort",  "distance");
-	        WebResponse response = tryGetResponse(conversation, request );
-	        HttpUtils.println(conversation, request, response);
-	        assertTrue( "登录-成功", response.getText().indexOf( "success" ) != -1 );
-	  }
+	  
 	  public void getNewMsgNumber() throws Exception {
 	      WebConversation     conversation = new WebConversation();
 	      //GetMethodWebRequest
